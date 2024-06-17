@@ -5,5 +5,5 @@ const UpdateTracking = () => {
         <div>UpdateTracking</div>
     )
 }
-
+    
 export default UpdateTracking

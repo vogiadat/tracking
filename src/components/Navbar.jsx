@@ -3,7 +3,7 @@ import SearchInput from './SearchInput'
 
 const Navbar = () => {
     return (
-        <div className="navbar fixed z-50 top-0 bg-accent bg-opacity-60">
+        <div className="navbar fixed z-50 top-0 bg-accent">
             <div className="flex-1">
                 <Link href="/" className="btn btn-ghost text-xl">Your Delivery</Link>
             </div>

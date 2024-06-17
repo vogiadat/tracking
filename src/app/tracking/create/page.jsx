@@ -3,7 +3,9 @@ import React from 'react'
 
 const CreateTracking = () => {
     return (
-        <FormTracking type={'Create'} />
+        <div className="min-w-full">
+            <FormTracking type={'Create'} />
+        </div>
     )
 }
 

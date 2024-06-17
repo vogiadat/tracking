@@ -1,6 +1,6 @@
 'use client'
 
-const FormLogin = () => {
+const Login = () => {
     return (
         <form className="card-body">
             <div className="form-control">
@@ -25,4 +25,4 @@ const FormLogin = () => {
     )
 }
 
-export default FormLogin
+export default Login
