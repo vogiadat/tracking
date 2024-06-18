@@ -1,6 +1,4 @@
-import React from 'react'
-
-const Status = ({ data }) => {
+const StatusCard = ({ data }) => {
 
     return data.map(card => (
         <div key={card.id} className="card w-80 bg-base-100 shadow-xl">
@@ -18,4 +16,4 @@ const Status = ({ data }) => {
     ))
 }
 
-export default Status
+export default StatusCard

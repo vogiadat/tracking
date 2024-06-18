@@ -3,7 +3,6 @@ import { getSequelize } from "@/database/config";
 import React from "react";
 
 const Page = async () => {
-    await getSequelize();
     return (
         <>
             <div className="hero-content text-center text-neutral-content">

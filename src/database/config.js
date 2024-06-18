@@ -1,19 +1,37 @@
-"use server";
 import { Sequelize } from "sequelize";
 
-const sequelize = new Sequelize("KT", "root", "", {
+const sequelize = new Sequelize({
     host: "localhost",
-    dialect: "mysql",
     port: 3306,
+    username: "root",
+    password: "",
+    database: "KT",
+    dialect: "mysql",
     dialectModule: require("mysql2"),
+    benchmark: true
 });
 
-export const getSequelize = async () => {
+(async () => {
     try {
-        await sequelize.authenticate();
-        console.log("connect successfully");
-        return sequelize;
+        await sequelize.authenticate()
+        console.log("Connection has been established successfully.")
+
+        // Sync defined models to the database
+        await sequelize.sync({ alter: true }) // This will create tables if they don't exist or update the existing ones
     } catch (error) {
         console.error("Unable to connect to the database:", error);
     }
-};
+})();
+
+export default sequelize
+
+// export const getSequelize = async () => {
+//     "use server";
+//     try {
+//         await sequelize.authenticate();
+//         console.log("connect successfully");
+//         return sequelize;
+//     } catch (error) {
+//         console.error("Unable to connect to the database:", error);
+//     }
+// };
