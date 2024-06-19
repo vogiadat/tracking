@@ -1,13 +1,31 @@
 'use client'
+import { signIn } from "next-auth/react"
 import { useState } from "react"
 
 const Login = ({ }) => {
     const [data, setData] = useState({ email: "", password: "" })
+    const [isLoading, setIsLoading] = useState(false)
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(data)
+        setIsLoading(true)
+        const res = await signIn("credentials", {
+            ...data,
+            redirect: false,
+        })
 
+        //   .then((callback) => {
+        //     setIsLoading(false);
+        //     if (callback?.ok) {
+        //       toast.success("Thành công");
+        //       router.refresh();
+        //       loginModal.onClose();
+        //     }
+
+        //     if (callback?.error) {
+        //       toast.error(callback.error);
+        //     }
+        //   });
     }
 
     return (
@@ -18,8 +36,9 @@ const Login = ({ }) => {
                 </label>
                 <input
                     value={data.email}
-                    onChange={e => setData({ ...data, email: e.target.value })}
+                    onChange={e => setData({ ...data, email: e.target.value.trim() })}
                     type="email"
+                    label="Email"
                     placeholder="Enter your email"
                     className="input input-bordered"
                     required
@@ -33,9 +52,10 @@ const Login = ({ }) => {
                     type="password"
                     placeholder="Enter your password"
                     className="input input-bordered"
+                    label="Password"
                     required
                     value={data.password}
-                    onChange={e => setData({ ...data, password: e.target.value })}
+                    onChange={e => setData({ ...data, password: e.target.value.trim() })}
                 />
                 {/* <label className="label">
                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>

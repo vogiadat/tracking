@@ -1,5 +1,4 @@
 import SearchInput from "@/components/SearchInput";
-import { getSequelize } from "@/database/config";
 import React from "react";
 
 const Page = async () => {

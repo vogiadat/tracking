@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import AuthProvider from "@/components/AuthProvider";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,12 +47,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="app">
-          <div className="hero min-h-screen" style={{ backgroundImage: 'url("/assets/images/bg_main.jpg")' }}>
-            <div className="hero-overlay bg-opacity-60"></div>
-            {children}
+        <AuthProvider>
+          <div className="app">
+            <div className="hero min-h-screen" style={{ backgroundImage: 'url("/assets/images/bg_main.jpg")' }}>
+              <div className="hero-overlay bg-opacity-60"></div>
+              {children}
+            </div>
           </div>
-        </div>
+        </AuthProvider>
       </body>
     </html>
   );
