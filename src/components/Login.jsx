@@ -14,6 +14,8 @@ const Login = ({ }) => {
             redirect: false,
         })
 
+        setIsLoading(false)
+        if (res.status !== 200) return alert(res.error)
         //   .then((callback) => {
         //     setIsLoading(false);
         //     if (callback?.ok) {
@@ -25,7 +27,7 @@ const Login = ({ }) => {
         //     if (callback?.error) {
         //       toast.error(callback.error);
         //     }
-        //   });
+        //   })
     }
 
     return (

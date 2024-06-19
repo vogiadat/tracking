@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import SearchInput from './SearchInput'
 
-const Navbar = () => {
+const Navbar = ({ type }) => {
     return (
         <div className="navbar fixed z-50 top-0 bg-accent">
             <div className="flex-1">
@@ -9,7 +9,7 @@ const Navbar = () => {
             </div>
             <div className="flex-none gap-2">
                 <SearchInput />
-                <div className="dropdown dropdown-end">
+                {type === 'Admin' && <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full"></div>
                     </div>
@@ -23,7 +23,7 @@ const Navbar = () => {
                         <li><a>Settings</a></li>
                         <li><a>Logout</a></li>
                     </ul>
-                </div>
+                </div>}
             </div>
         </div>
     )

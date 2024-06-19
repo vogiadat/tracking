@@ -14,24 +14,13 @@ const sequelize = new Sequelize({
 (async () => {
     try {
         await sequelize.authenticate()
-        console.log("Connection has been established successfully.")
+        console.log("Success ::: Connection has been established successfully.")
 
         // Sync defined models to the database
         await sequelize.sync({ alter: true }) // This will create tables if they don't exist or update the existing ones
     } catch (error) {
-        console.error("Unable to connect to the database:", error);
+        console.error("Error ::: Unable to connect to the database:", error);
     }
 })();
 
 export default sequelize
-
-// export const getSequelize = async () => {
-//     "use server";
-//     try {
-//         await sequelize.authenticate();
-//         console.log("connect successfully");
-//         return sequelize;
-//     } catch (error) {
-//         console.error("Unable to connect to the database:", error);
-//     }
-// };
