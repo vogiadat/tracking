@@ -1,9 +1,12 @@
 'use client'
 import { signIn } from "next-auth/react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 const Login = ({ }) => {
-    const [data, setData] = useState({ email: "", password: "" })
+    const router = useRouter()
+    const [data, setData] = useState({ email: "admin@gmail.com", password: "123123" })
     const [isLoading, setIsLoading] = useState(false)
 
     const handleSubmit = async (e) => {
@@ -15,19 +18,9 @@ const Login = ({ }) => {
         })
 
         setIsLoading(false)
+        console.log(res)
         if (res.status !== 200) return alert(res.error)
-        //   .then((callback) => {
-        //     setIsLoading(false);
-        //     if (callback?.ok) {
-        //       toast.success("Thành công");
-        //       router.refresh();
-        //       loginModal.onClose();
-        //     }
-
-        //     if (callback?.error) {
-        //       toast.error(callback.error);
-        //     }
-        //   })
+        return router.push('/admin')
     }
 
     return (
@@ -59,12 +52,19 @@ const Login = ({ }) => {
                     value={data.password}
                     onChange={e => setData({ ...data, password: e.target.value.trim() })}
                 />
-                {/* <label className="label">
-                    <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                </label> */}
+                <label className="label">
+                    <Link href="/" className="label-text-alt link link-hover">Go to homepage</Link>
+                </label>
             </div>
             <div className="form-control mt-6">
-                <button className="btn btn-accent">Login</button>
+                <button className="btn btn-accent">
+                    {isLoading ?
+                        <>
+                            <span className="loading loading-spinner"></span>
+                            loading
+                        </>
+                        : "Login"}
+                </button>
             </div>
         </form>
     )

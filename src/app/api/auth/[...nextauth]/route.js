@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import User from "@/models/User";
 import * as bcrypt from 'bcrypt'
-import { signIn } from "next-auth/react";
 
 const handler = NextAuth({
     providers: [
@@ -12,32 +11,47 @@ const handler = NextAuth({
                 username: { label: "Email", type: "text" },
                 password: { label: "Password", type: "password" }
             },
-            async authorize({ email, password }, req) {
-                const { dataValues: user } = await User.findOne({
+            async authorize({ email, password }) {
+                const data = await User.findOne({
                     where: {
                         email
                     }
                 })
 
-                if (!user) throw new Error("Error::: User not found!!!")
+                if (!data) throw new Error("Email invalid!!!")
+                const user = data.dataValues
 
                 const isPassword = await bcrypt.compare(
                     password,
                     user.password
                 );
 
-                if (!isPassword) throw new Error("Error::: Password invalid!!!");
+                if (!isPassword) throw new Error("Password invalid!!!");
                 return user;
             }
         })
     ],
     callbacks: {
         async session({ session }) {
-            const { dataValues: user } = await User.findOne({ where: { email: session.email } })
+            const { dataValues: user } = await User.findOne({ where: { email: session?.user.email } })
             session.user.id = user.id.toString()
+            session.user.name = session.user.email.split("@").at(0)
             return session
+        },
+        async jwt({ token, user, account, profile, isNewUser }) {
+            return token
+        },
+        async redirect({ baseUrl, url }) {
+            if (url.startsWith("/")) return `${baseUrl}${url}`
+            else if (new URL(url).origin === baseUrl) return url
+            return baseUrl
         }
-    }
+    },
+    pages: {
+        signIn: '/auth/login',
+        signOut: '/'
+    },
+    secret: process.env.NEXTAUTH_SECRET,
 })
 
 export { handler as GET, handler as POST }
