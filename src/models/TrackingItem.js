@@ -1,27 +1,30 @@
-import * as bcrypt from "bcrypt"
 import { DataTypes } from "sequelize"
 import sequelize from "@/database/config"
+import Tracking from "./Tracking"
 
-const TrackingStatus = sequelize.define("Tracking", {
+const TrackingItem = sequelize.define("TrackingItem", {
     id: {
         type: DataTypes.UUID,
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4
     },
-    title: {
+    status: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    desc: {
+    location: {
         type: DataTypes.STRING,
         allowNull: false,
     },
     image: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
+    },
+    trackingId: {
+        type: DataTypes.UUID,
     },
 }, {
     timestamps: true,
 })
 
-export default TrackingStatus
+export default TrackingItem

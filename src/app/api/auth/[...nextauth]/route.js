@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import User from "@/models/User";
+import { User } from "@/models";
 import * as bcrypt from 'bcrypt'
 
 const handler = NextAuth({
@@ -12,14 +12,13 @@ const handler = NextAuth({
                 password: { label: "Password", type: "password" }
             },
             async authorize({ email, password }) {
-                const data = await User.findOne({
+                const user = await User.findOne({
                     where: {
                         email
                     }
                 })
 
-                if (!data) throw new Error("Email invalid!!!")
-                const user = data.dataValues
+                if (!user) throw new Error("Email invalid!!!")
 
                 const isPassword = await bcrypt.compare(
                     password,
@@ -33,12 +32,12 @@ const handler = NextAuth({
     ],
     callbacks: {
         async session({ session }) {
-            const { dataValues: user } = await User.findOne({ where: { email: session?.user.email } })
+            const user = await User.findOne({ where: { email: session?.user.email } })
             session.user.id = user.id.toString()
             session.user.name = session.user.email.split("@").at(0)
             return session
         },
-        async jwt({ token, user, account, profile, isNewUser }) {
+        async jwt({ token, user, account, profile }) {
             return token
         },
         async redirect({ baseUrl, url }) {

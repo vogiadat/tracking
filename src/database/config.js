@@ -5,7 +5,7 @@ const sequelize = new Sequelize({
     port: 3306,
     username: "root",
     password: "",
-    database: "KT",
+    database: "kt",
     dialect: "mysql",
     dialectModule: require("mysql2"),
     benchmark: true

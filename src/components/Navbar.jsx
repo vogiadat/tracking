@@ -29,7 +29,7 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link href='/admin/tracking/update' className="justify-between">
+                                <Link href='/admin/tracking/update/HCM123123' className="justify-between">
                                     Update Tracking
                                 </Link>
                             </li>

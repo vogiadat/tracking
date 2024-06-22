@@ -1,21 +1,48 @@
 'use client'
 
-import Link from "next/link"
-import StatusCard from "./StatusCard"
-import moment from "moment";
 import { useState } from "react";
-import StatusList from "./StatusList";
+import Link from "next/link"
+import { TrackingItem, TrackingItemCom, TrackingList } from "@/components/tracking";
+import { DateCom, InputCom } from '@/components/ui'
 
-const Form = ({ data, setData, type }) => {
+const Form = ({ packageData }) => {
+    const isUpdate = !!packageData?.id
+    const [data, setData] = useState(isUpdate ? packageData : {
+        trackingNumber: '',
+        dateSend: "",
+        estimateReceivedDay: "",
+        from: '',
+        to: "",
+        packaging: "",
+        services: "",
+        terms: "",
+        totalPackage: "",
+        trackingItems: []
+    })
     const [toggleAddStatus, setToggleAddStatus] = useState(false)
 
     const handleCreateStatus = ({ statusData, setStatusData }) => {
-        const newStatus = { ...statusData, createAt: moment().format('MMMM Do YYYY - HH:MM:SS'), id: new Date().toString() }
+        const newStatus = { ...statusData }
         setStatusData({ status: "", location: "", createAt: "" })
-        const newData = [...data.deliveryStatus, newStatus]
-        setData({ ...data, deliveryStatus: newData })
+        const newData = [...data.trackingItems, newStatus]
+        setData({ ...data, trackingItems: newData })
         return setToggleAddStatus(false)
     }
+
+    const handleCreateTracking = async (e) => {
+        e.preventDefault()
+        try {
+            const res = await fetch('/api/tracking/create', {
+                method: "POST",
+                body: JSON.stringify(packageData)
+            })
+
+            if (res.ok) return router.push("/admin")
+        } catch (error) {
+            alert(error)
+        }
+    }
+
 
     return (
         <>
@@ -23,16 +50,16 @@ const Form = ({ data, setData, type }) => {
             <div className="flex p-8 gap-8">
                 <div className="flex-1">
                     <h2 className="text-xl font-extrabold text-gray-900">Delivery History</h2>
-                    <StatusList data={data.deliveryStatus} />
+                    <TrackingList data={data.trackingItems} />
                 </div>
                 <div className="flex-1">
-                    <form className="">
+                    <form className="" onSubmit={handleCreateTracking}>
                         <div className="space-y-4">
                             <div className="border-b border-gray-900/10 pb-6">
                                 <h2 className="text-xl font-extrabold text-gray-900">SHIPMENT OVERVIEW</h2>
                                 <div className="mt-2 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
                                     <div className="col-span-full">
-                                        <InputCom status={type === "Update"} title={'TRACKING NUMBER'} plainText={'enter tracking number'} value={data.trackingNumber} onChange={(e) => setData({ ...data, trackingNumber: e.target.value })} />
+                                        <InputCom status={isUpdate} title={'TRACKING NUMBER'} plainText={'enter tracking number'} value={data.trackingNumber} onChange={(e) => setData({ ...data, trackingNumber: e.target.value })} />
                                     </div>
                                     <div className="col-span-full">
                                         <InputCom title={'FROM'} value={data.from} onChange={e => setData({ ...data, from: e.target.value })} />
@@ -41,10 +68,10 @@ const Form = ({ data, setData, type }) => {
                                         <InputCom title={'TO'} value={data.to} onChange={e => setData({ ...data, to: e.target.value })} />
                                     </div>
                                     <div className="col-span-full">
-                                        <InputCom title={'DATE SEND'} value={data.dateSend} onChange={e => setData({ ...data, dataSend: e.target.value })} />
+                                        <DateCom max={data.estimateReceivedDay} title={'DATE SEND'} value={data.dateSend} onChange={e => setData({ ...data, dateSend: e.target.value })} />
                                     </div>
                                     <div className="col-span-full">
-                                        <InputCom title={'ESTIMATE RECEIVED DAY'} value={data.estimateReceivedDay} onChange={e => setData({ ...data, estimateReceivedDay: e.target.value })} />
+                                        <DateCom min={data.dateSend} title={'ESTIMATE RECEIVED DAY'} value={data.estimateReceivedDay} onChange={e => setData({ ...data, estimateReceivedDay: e.target.value })} />
                                     </div>
                                 </div>
                             </div>
@@ -75,11 +102,11 @@ const Form = ({ data, setData, type }) => {
                             <div className="border-b border-gray-900/10 pb-6">
                                 <h2 className="text-xl font-extrabold text-gray-900">DELIVERY STATUS</h2>
                                 <div className="mt-2 grid grid-cols-2 gap-6">
-                                    <StatusCard data={data.deliveryStatus} />
+                                    <TrackingItem data={data.trackingItems} />
                                 </div>
                                 <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-4">
                                     {toggleAddStatus &&
-                                        <StatusCom
+                                        <TrackingItemCom
                                             type={'Create'}
                                             handleCreate={handleCreateStatus}
                                             handleCancel={() => setToggleAddStatus(false)}
@@ -100,7 +127,7 @@ const Form = ({ data, setData, type }) => {
                                 type="submit"
                                 className="btn btn-sm"
                             >
-                                {type}
+                                {isUpdate ? 'Update' : "Create"}
                             </button>
                         </div>
                     </form >
@@ -113,42 +140,3 @@ const Form = ({ data, setData, type }) => {
 
 export default Form
 
-const InputCom = ({ title, plainText, status, value, onChange }) => (<>
-    <label className="font-bold text-sm" htmlFor={title}>
-        {title}
-    </label>
-    <input id={title} name={title} value={value} onChange={onChange} type="text" className="mt-2 -mb-8 input input-sm input-bordered min-w-full" placeholder={plainText} />
-</>
-)
-
-const StatusCom = ({ type, handleCreate, handleCancel }) => {
-    const [statusData, setStatusData] = useState({ status: "", location: "", createAt: "" })
-
-    return (
-        <div className="space-y-4">
-            <div className="w-full">
-                <label className="font-bold text-sm" htmlFor='status'>
-                    STATUS
-                </label>
-                <input id='status' name='status' type="text" className="mt-2 -mb-8 input input-sm input-bordered min-w-full" value={statusData.status} onChange={e => setStatusData({ ...statusData, status: e.target.value })} />
-            </div>
-            <div className="w-full">
-                <label className="font-bold text-sm" htmlFor='location'>
-                    LOCATION
-                </label>
-                <input id='location' name='location' type="text" className="mt-2 -mb-8 input input-sm input-bordered min-w-full" value={statusData.location} onChange={e => setStatusData({ ...statusData, location: e.target.value })} />
-            </div>
-            <button type="button" className="btn btn-sm btn-error text-base-100" onClick={handleCancel}>
-                Cancel
-            </button>
-            <button
-                type="button"
-                className="btn btn-sm"
-                onClick={() => handleCreate({ statusData, setStatusData })}
-            >
-                {type}
-            </button>
-        </div>
-    )
-
-}
