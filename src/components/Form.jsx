@@ -1,48 +1,59 @@
 'use client'
 
-import { useState } from "react";
 import Link from "next/link"
-import { TrackingItem, TrackingItemCom, TrackingList } from "@/components/tracking";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { DateCom, InputCom } from '@/components/ui'
+import { TrackingItem, TrackingItemCom, TrackingList } from "@/components/tracking";
+import { revalidateTag } from "next/cache";
+import { catching } from "@/config/const";
 
 const Form = ({ packageData }) => {
+    const router = useRouter()
     const isUpdate = !!packageData?.id
+    const [toggleAddStatus, setToggleAddStatus] = useState(false)
     const [data, setData] = useState(isUpdate ? packageData : {
+        id: '',
         trackingNumber: '',
-        dateSend: "",
-        estimateReceivedDay: "",
+        dateSend: '',
+        estimateReceivedDay: '',
         from: '',
-        to: "",
-        packaging: "",
-        services: "",
-        terms: "",
-        totalPackage: "",
+        to: '',
+        packaging: '',
+        services: '',
+        terms: '',
+        totalPackage: '',
         trackingItems: []
     })
-    const [toggleAddStatus, setToggleAddStatus] = useState(false)
 
     const handleCreateStatus = ({ statusData, setStatusData }) => {
         const newStatus = { ...statusData }
-        setStatusData({ status: "", location: "", createAt: "" })
+        setStatusData({ status: '', location: '' })
         const newData = [...data.trackingItems, newStatus]
         setData({ ...data, trackingItems: newData })
         return setToggleAddStatus(false)
     }
 
-    const handleCreateTracking = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const res = await fetch('/api/tracking/create', {
-                method: "POST",
-                body: JSON.stringify(packageData)
+            const option = {
+                url: isUpdate ? `/api/tracking/${data.id}` : '/api/tracking/create',
+                method: isUpdate ? 'PATCH' : 'POST'
+            }
+
+            const res = await fetch(option.url, {
+                method: option.method,
+                body: JSON.stringify(data)
             })
+
+            revalidateTag(catching.GET_TRACKING_BY_ID)
 
             if (res.ok) return router.push("/admin")
         } catch (error) {
             alert(error)
         }
     }
-
 
     return (
         <>
@@ -53,7 +64,7 @@ const Form = ({ packageData }) => {
                     <TrackingList data={data.trackingItems} />
                 </div>
                 <div className="flex-1">
-                    <form className="" onSubmit={handleCreateTracking}>
+                    <form className="" onSubmit={handleSubmit}>
                         <div className="space-y-4">
                             <div className="border-b border-gray-900/10 pb-6">
                                 <h2 className="text-xl font-extrabold text-gray-900">SHIPMENT OVERVIEW</h2>
@@ -105,14 +116,12 @@ const Form = ({ packageData }) => {
                                     <TrackingItem data={data.trackingItems} />
                                 </div>
                                 <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-4">
-                                    {toggleAddStatus &&
+                                    {toggleAddStatus ?
                                         <TrackingItemCom
                                             type={'Create'}
                                             handleCreate={handleCreateStatus}
                                             handleCancel={() => setToggleAddStatus(false)}
-                                        />
-                                    }
-                                    {!toggleAddStatus &&
+                                        /> :
                                         <button type="button" className="btn" onClick={() => setToggleAddStatus(true)}>Add</button>
                                     }
                                 </div>

@@ -18,7 +18,6 @@ const Login = ({ }) => {
         })
 
         setIsLoading(false)
-        console.log(res)
         if (res.status !== 200) return alert(res.error)
         return router.push('/admin')
     }

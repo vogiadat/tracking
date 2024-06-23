@@ -7,7 +7,7 @@ const TrackingItem = ({ data }) => {
                 <h2 className="card-title font-bold">
                     {card.status}
                 </h2>
-                <span className="badge badge-info text-base-100 text-xs font-bold">{moment(card.createdAt).format("MMMM Do YYYY - HH:MM:SS") ?? ''}</span>
+                <span className="badge badge-info text-base-100 text-xs font-bold">{card.createdAt ? moment(card.createdAt).format("MMMM Do YYYY - HH:MM:SS") : ''}</span>
                 <p>{card.location}</p>
                 {/* <div className="card-actions justify-end">
                 <button className="btn btn-sm btn-primary">Edit</button>

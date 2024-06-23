@@ -22,8 +22,20 @@ export const GET = async (req, res) => {
 }
 
 export const PATCH = async (req, res) => {
+    const { trackingNumber: id } = res.params
     try {
-        // const res = await Tracking.
+        const data = await req.json()
+        const resTracking = await Tracking.update(data, { where: { id } })
+
+        data.trackingItems.map(async item => {
+            if (!item.id) {
+                const res = await TrackingItem.create({ ...item, trackingId: id })
+                if (!res) throw new Error("Can't create tracking item")
+            }
+        })
+
+        if (!resTracking) return NextResponse.json("Tracking Id invalid!!!", { status: 404 })
+        return NextResponse.json(resTracking, { status: 200 })
     } catch (error) {
         return NextResponse.json({ error }, { status: 500 })
 

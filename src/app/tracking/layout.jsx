@@ -4,7 +4,7 @@ export default function TrackingLayout({ children }) {
     return (
         <>
             <Navbar />
-            <div className="pt-20 hero min-h-screen bg-base-100">
+            <div className="pt-16 hero min-h-screen bg-base-100">
                 {children}
             </div>
         </>
