@@ -1,7 +1,5 @@
-import { NextResponse } from "next/server"
-import sequelize from "@/database/config"
-import { Tracking, TrackingItem } from "@/models"
+import { NextResponse } from 'next/server'
 
 export const GET = () => {
-    return NextResponse.json("Test")
+  return NextResponse.json('Test')
 }

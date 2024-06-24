@@ -41,15 +41,14 @@ const Form = () => {
     }
 
     const res = await fetch('/api/tracking-item', {
-      method: "POST",
-      body: JSON.stringify(newStatus),
+      method: 'POST',
+      body: JSON.stringify(newStatus)
     })
 
     const newTracking = await res.json()
     setData({ ...data, trackingItems: [...data.trackingItems, newTracking] })
     return setToggleAddStatus(false)
   }
-
 
   const handleDelete = async (id) => {
     const isConfirm = confirm('Do you want delete it?')
@@ -63,12 +62,12 @@ const Form = () => {
     e.preventDefault()
     const option = {
       url: isUpdate ? `/api/tracking/${data.id}` : '/api/tracking/create',
-      method: isUpdate ? 'PATCH' : 'POST',
+      method: isUpdate ? 'PATCH' : 'POST'
     }
 
     const res = await fetch(option.url, {
       method: option.method,
-      body: JSON.stringify(data),
+      body: JSON.stringify(data)
     })
     if (!res.ok) return
     return router.push('/admin/tracking')
@@ -198,15 +197,26 @@ const Form = () => {
             </div>
 
             <div className='mt-6 flex items-center justify-end gap-x-6'>
-              <Link href='/admin/tracking' className='btn btn-sm btn-outline btn-error text-base-100'>
-                Cancel
-              </Link>
-              <button type='button' className='btn btn-sm btn-error text-base-100' onClick={() => isUpdate && handleDelete(data.id)}>
+              <button
+                type='button'
+                className='btn btn-sm btn-error text-base-100'
+                onClick={() => isUpdate && handleDelete(data.id)}
+              >
                 Delete
               </button>
-              <button type='submit' className='btn btn-sm'>
-                {isUpdate ? 'Update' : 'Create'}
-              </button>
+
+              <div>
+                <Link
+                  href='/admin/tracking'
+                  className='btn btn-sm btn-outline btn-error text-base-100'
+                >
+                  Cancel
+                </Link>
+
+                <button type='submit' className='btn btn-sm'>
+                  {isUpdate ? 'Update' : 'Create'}
+                </button>
+              </div>
             </div>
           </form>
         </div>
