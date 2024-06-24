@@ -49,7 +49,7 @@ const Form = ({ packageData }) => {
         body: JSON.stringify(data)
       })
 
-      if (res.ok) return router.refresh()
+      if (res.ok) return router.push('/admin/tracking')
     } catch (error) {
       alert(error)
     }
@@ -156,7 +156,7 @@ const Form = ({ packageData }) => {
               <div className='border-b border-gray-900/10 pb-6'>
                 <h2 className='text-xl font-extrabold text-gray-900'>DELIVERY STATUS</h2>
                 <div className='mt-2 grid grid-cols-2 gap-6'>
-                  <TrackingItem data={data.trackingItems} />
+                  <TrackingItem data={data} setData={setData} />
                 </div>
                 <div className='mt-6 grid grid-cols-1 gap-x-6 gap-y-4'>
                   {toggleAddStatus ? (
@@ -175,7 +175,7 @@ const Form = ({ packageData }) => {
             </div>
 
             <div className='mt-6 flex items-center justify-end gap-x-6'>
-              <Link href='/' className='btn btn-sm btn-error text-base-100'>
+              <Link href='/admin/tracking' className='btn btn-sm btn-error text-base-100'>
                 Cancel
               </Link>
               <button type='submit' className='btn btn-sm'>

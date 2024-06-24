@@ -3,7 +3,7 @@
 import { useState } from 'react'
 
 const TrackingItemCom = ({ type, handleCreate, handleCancel }) => {
-    const [statusData, setStatusData] = useState({ status: "Tracking Create", location: "Ho Chi Minh" })
+    const [statusData, setStatusData] = useState({ status: "", location: "" })
 
     return (
         <div className="space-y-4">

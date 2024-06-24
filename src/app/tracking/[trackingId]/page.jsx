@@ -7,7 +7,6 @@ const TrackingDetail = async ({ params }) => {
   const { trackingId } = params
 
   const data = await getTrackingById(trackingId)
-  console.log('123u123 ==> ', data)
 
   if (!data) return <h1>Hello word</h1>
 
@@ -40,10 +39,10 @@ const TrackingDetail = async ({ params }) => {
           </h1>
           <div className='mt-8 relative overflow-x-auto shadow-md'>
             <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
+              <caption className='text-center text-base font-bold text-accent'>
+                SHIPMENT OVERVIEW
+              </caption>
               <tbody>
-                {/* <tr className='py-5 text-right text-base font-bold text-accent'>
-                  SHIPMENT OVERVIEW
-                </tr> */}
                 <TableRow title={'Tracking Number'} data={data.trackingNumber} />
                 <TableRow title={'From'} data={data.from} />
                 <TableRow title={'To'} data={data.to} />
@@ -54,8 +53,8 @@ const TrackingDetail = async ({ params }) => {
           </div>
           <div className='mt-8 relative overflow-x-auto shadow-md'>
             <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
+              <caption className='text-center text-base font-bold text-accent'>SERVICES</caption>
               <tbody>
-                {/* <tr className='py-5 text-right text-base font-bold text-accent'>SERVICES</tr> */}
                 <TableRow title={'Services'} data={data.services} />
                 <TableRow title={'Terms'} data={data.terms} />
               </tbody>
@@ -63,8 +62,8 @@ const TrackingDetail = async ({ params }) => {
           </div>
           <div className='mt-8 relative overflow-x-auto shadow-md'>
             <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
+              <caption className='text-center text-base font-bold text-accent'>PACKAGE DETAILS</caption>
               <tbody>
-                {/* <tr className='py-5 text-right text-base font-bold text-accent'>PACKAGE DETAILS</tr> */}
                 <TableRow title={'Packaging'} data={data.packaging} />
                 <TableRow title={'Total Package'} data={data.totalPackage} />
               </tbody>
@@ -75,7 +74,7 @@ const TrackingDetail = async ({ params }) => {
           <h2 className='w-full text-xl text-center font-extrabold text-gray-900'>
             Delivery History
           </h2>
-          <TrackingList data={data.trackingItems} />
+          <TrackingList data={data.trackingItems ?? []} />
         </div>
       </div>
     </section>

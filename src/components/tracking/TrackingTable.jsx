@@ -1,23 +1,16 @@
-"use client"
 import moment from "moment"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { redirect } from 'next/navigation'
 
 const TrackingTable = ({ data }) => {
-    const router = useRouter()
-
     if (!data) {
-        router.push('/admin/tracking')
-        return alert('No data found')
-    }
-
-    const handleEdit = (item) => {
-        return router.push(`/admin/tracking/update/${item.trackingNumber}`)
+        alert('No data found')
+        return redirect('/admin/tracking')
     }
 
     const handleDelete = async (id) => {
-        const res = await fetch(`/api/tracking/${id}`, { method: 'DELETE' })
-        console.log(res)
+        await fetch(`/api/tracking/${id}`, { method: 'DELETE' })
+        return alert('Success')
     }
 
     return (
@@ -55,7 +48,7 @@ const TrackingTable = ({ data }) => {
                                 <td>{moment(item.dateSend).format('DD-MM-YYYY')}</td>
                                 <td>{moment(item.estimateReceivedDay).format('DD-MM-YYYY')}</td>
                                 <td>
-                                    <button className="btn btn-ghost text-accent btn-xs" onClick={() => handleEdit(item)}>Edit</button>
+                                    <Link prefetch={true} href={`/admin/tracking/update/${item.trackingNumber}`} className="btn btn-ghost text-accent btn-xs">Edit</Link>
                                     <button type="button" className="btn btn-ghost btn-xs text-error" onClick={() => handleDelete(item.id)}>Delete</button>
                                 </td>
                             </tr>
