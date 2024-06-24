@@ -61,7 +61,7 @@ const TrackingTable = () => {
                   Detail
                 </Link>
                 <Link
-                  href={`/admin/tracking/update/${item.trackingNumber}/tracking-items`}
+                  href={`/admin/tracking-item/${item.id}`}
                   className='btn btn-outline btn-sm text-ghost hover:bg-ghost/80 hover:border-white'
                 >
                   Delivery

@@ -1,34 +1,34 @@
-import { DataTypes } from "sequelize";
-import sequelize from "@/database/config";
-import Tracking from "./Tracking";
+import { DataTypes } from 'sequelize'
+import sequelize from '@/database/config'
+import Tracking from './Tracking'
 
 const TrackingItem = sequelize.define(
-  "trackingitems",
+  'trackingitems',
   {
     id: {
       type: DataTypes.UUID,
       primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
+      defaultValue: DataTypes.UUIDV4
     },
     status: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     location: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: true
     },
     trackingId: {
-      type: DataTypes.UUID,
-    },
+      type: DataTypes.UUID
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
+)
 
-export default TrackingItem;
+export default TrackingItem
