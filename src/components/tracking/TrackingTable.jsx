@@ -13,11 +13,6 @@ const TrackingTable = () => {
         return setData(value)
     }
 
-    if (!data) {
-        alert('No data found')
-        return redirect('/admin/tracking')
-    }
-
     useEffect(() => {
         fetchTracking()
     }, [])
