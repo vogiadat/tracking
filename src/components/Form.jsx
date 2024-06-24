@@ -1,59 +1,82 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { useParams, useRouter } from 'next/navigation'
 import { DateCom, InputCom } from '@/components/ui'
 import { TrackingItem, TrackingItemCom, TrackingList } from '@/components/tracking'
 
-const Form = ({ packageData }) => {
+const Form = () => {
+  const { trackingNumber } = useParams()
   const router = useRouter()
-  const isUpdate = !!packageData?.id
+  const isUpdate = !!trackingNumber
   const [toggleAddStatus, setToggleAddStatus] = useState(false)
-  const [data, setData] = useState(
-    isUpdate
-      ? packageData
-      : {
-        id: '',
-        trackingNumber: '',
-        dateSend: '',
-        estimateReceivedDay: '',
-        from: '',
-        to: '',
-        packaging: '',
-        services: '',
-        terms: '',
-        totalPackage: '',
-        trackingItems: []
-      }
-  )
+  const [data, setData] = useState({
+    trackingNumber: '',
+    dateSend: '',
+    estimateReceivedDay: '',
+    from: '',
+    to: '',
+    packaging: '',
+    services: '',
+    terms: '',
+    totalPackage: '',
+    trackingItems: []
+  })
 
-  const handleCreateStatus = ({ statusData, setStatusData }) => {
-    const newStatus = { ...statusData }
+  const fetchData = async () => {
+    const res = await fetch(`/api/tracking/${trackingNumber}`)
+    const value = await res.json()
+    return setData(value)
+  }
+
+  const handleCreateStatus = async ({ statusData, setStatusData }) => {
+    const newStatus = isUpdate ? { ...statusData, trackingId: data.id } : statusData
     setStatusData({ status: '', location: '' })
-    const newData = [...data.trackingItems, newStatus]
-    setData({ ...data, trackingItems: newData })
+
+    if (!isUpdate) {
+      const newData = [...data.trackingItems, newStatus]
+      setData({ ...data, trackingItems: newData })
+      return setToggleAddStatus(false)
+    }
+
+    const res = await fetch('/api/tracking-item', {
+      method: "POST",
+      body: JSON.stringify(newStatus),
+    })
+
+    const newTracking = await res.json()
+    setData({ ...data, trackingItems: [...data.trackingItems, newTracking] })
     return setToggleAddStatus(false)
+  }
+
+
+  const handleDelete = async (id) => {
+    const isConfirm = confirm('Do you want delete it?')
+    if (!isConfirm) return
+    const res = await fetch(`/api/tracking/${id}`, { method: 'DELETE' })
+    if (!res.ok) return alert("Can't delete because it have Delivery Status")
+    return router.push('/admin/tracking')
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    try {
-      const option = {
-        url: isUpdate ? `/api/tracking/${data.id}` : '/api/tracking/create',
-        method: isUpdate ? 'PATCH' : 'POST'
-      }
-
-      const res = await fetch(option.url, {
-        method: option.method,
-        body: JSON.stringify(data)
-      })
-
-      if (res.ok) return router.push('/admin/tracking')
-    } catch (error) {
-      alert(error)
+    const option = {
+      url: isUpdate ? `/api/tracking/${data.id}` : '/api/tracking/create',
+      method: isUpdate ? 'PATCH' : 'POST',
     }
+
+    const res = await fetch(option.url, {
+      method: option.method,
+      body: JSON.stringify(data),
+    })
+    if (!res.ok) return
+    return router.push('/admin/tracking')
   }
+
+  useEffect(() => {
+    if (trackingNumber) fetchData()
+  }, [trackingNumber])
 
   return (
     <>
@@ -175,9 +198,12 @@ const Form = ({ packageData }) => {
             </div>
 
             <div className='mt-6 flex items-center justify-end gap-x-6'>
-              <Link href='/admin/tracking' className='btn btn-sm btn-error text-base-100'>
+              <Link href='/admin/tracking' className='btn btn-sm btn-outline btn-error text-base-100'>
                 Cancel
               </Link>
+              <button type='button' className='btn btn-sm btn-error text-base-100' onClick={() => isUpdate && handleDelete(data.id)}>
+                Delete
+              </button>
               <button type='submit' className='btn btn-sm'>
                 {isUpdate ? 'Update' : 'Create'}
               </button>

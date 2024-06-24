@@ -1,23 +1,29 @@
+// import { fetchTracking } from "@/app/actions/tracking"
+'use client'
+import { useState, useEffect } from "react"
 import moment from "moment"
 import Link from "next/link"
-import { redirect } from 'next/navigation'
 
-const TrackingTable = ({ data }) => {
+const TrackingTable = () => {
+    const [data, setData] = useState([])
+
+    const fetchTracking = async () => {
+        const res = await fetch('http://localhost:3000/api/tracking')
+        const value = await res.json()
+        return setData(value)
+    }
+
     if (!data) {
         alert('No data found')
         return redirect('/admin/tracking')
     }
 
-    const handleDelete = async (id) => {
-        await fetch(`/api/tracking/${id}`, { method: 'DELETE' })
-        return alert('Success')
-    }
+    useEffect(() => {
+        fetchTracking()
+    }, [])
 
     return (
         <>
-            <div className="w-full h-10 flex items-center justify-end">
-                <Link href='/admin/tracking/create' className="btn btn-sm">Create</Link>
-            </div>
             <table className="table border">
                 {/* head */}
                 <thead>
@@ -48,15 +54,14 @@ const TrackingTable = ({ data }) => {
                                 <td>{moment(item.dateSend).format('DD-MM-YYYY')}</td>
                                 <td>{moment(item.estimateReceivedDay).format('DD-MM-YYYY')}</td>
                                 <td>
-                                    <Link prefetch={true} href={`/admin/tracking/update/${item.trackingNumber}`} className="btn btn-ghost text-accent btn-xs">Edit</Link>
-                                    <button type="button" className="btn btn-ghost btn-xs text-error" onClick={() => handleDelete(item.id)}>Delete</button>
+                                    <Link href={`/admin/tracking/update/${item.trackingNumber}`} className="btn btn-ghost text-accent btn-xs">Edit</Link>
                                 </td>
                             </tr>
                         ))
                     }
 
                 </tbody>
-            </table>
+            </table >
         </>
     )
 }

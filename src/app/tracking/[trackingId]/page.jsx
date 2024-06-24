@@ -1,6 +1,7 @@
 import { getTrackingById } from '@/app/actions/tracking'
 import { TrackingList } from '@/components/tracking'
 import { TableRow } from '@/components/table-row'
+import { redirect } from 'next/navigation'
 import moment from 'moment'
 
 const TrackingDetail = async ({ params }) => {
@@ -8,7 +9,10 @@ const TrackingDetail = async ({ params }) => {
 
   const data = await getTrackingById(trackingId)
 
-  if (!data) return <h1>Hello word</h1>
+  if (!data) {
+    alert("Not found data")
+    return redirect("/")
+  }
 
   return (
     <section className='h-full w-full'>

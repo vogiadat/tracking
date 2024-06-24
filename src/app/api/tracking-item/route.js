@@ -11,12 +11,12 @@ export const GET = async (req, res) => {
   }
 }
 
-export const DELETE = async (req, res) => {
-  const { id } = res.params
+export const POST = async (req) => {
+  const data = await req.json()
   try {
-    await TrackingItem.destroy({ id })
+    const res = await TrackingItem.create({ ...data })
     revalidateTag(catching.GET_TRACKING_BY_ID)
-    return NextResponse.json(id, { status: 200 })
+    return NextResponse.json(res, { status: 200 })
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 })
   }

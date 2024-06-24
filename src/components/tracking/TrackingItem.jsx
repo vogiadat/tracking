@@ -1,8 +1,8 @@
-'use client'
 import moment from 'moment'
 
 const TrackingItem = ({ data, setData }) => {
   const { trackingItems } = data
+
   const handleDelete = async (item) => {
     const isConfirm = confirm(`Do you want to delete status ${item.status}`)
     if (!isConfirm) return

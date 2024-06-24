@@ -1,25 +1,16 @@
-'use client'
+import Link from 'next/link'
 
-import { useState, useEffect } from 'react'
 import { TrackingTable } from '@/components/tracking'
 
 const TrackingPage = () => {
-    const [data, setData] = useState([])
-
-    const fetchTracking = async () => {
-        const res = await fetch('/api/tracking')
-        const data = await res.json()
-        return setData(data)
-    }
-
-    useEffect(() => {
-        fetchTracking()
-    }, [])
-
 
     return (
+
         <div className="h-full w-full px-16 pt-6">
-            <TrackingTable data={data} />
+            <div className="w-full h-10 flex items-center justify-end">
+                <Link href='/admin/tracking/create' className="btn btn-sm">Create</Link>
+            </div>
+            <TrackingTable />
         </div>
     )
 }
