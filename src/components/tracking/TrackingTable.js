@@ -7,6 +7,14 @@ import Link from 'next/link'
 const TrackingTable = () => {
   const [data, setData] = useState([])
 
+  const handleDelete = async (id) => {
+    const isConfirm = confirm('Do you want delete it?')
+    if (!isConfirm) return
+    const res = await fetch(`/api/tracking/${id}`, { method: 'DELETE' })
+    if (!res.ok) return alert("Can't delete because it have Delivery Status")
+    return router.push('/admin/tracking')
+  }
+
   const fetchTracking = async () => {
     const res = await fetch('http://localhost:3000/api/tracking')
     const value = await res.json()
@@ -45,13 +53,26 @@ const TrackingTable = () => {
               <td>{item.to}</td>
               <td>{moment(item.dateSend).format('DD-MM-YYYY')}</td>
               <td>{moment(item.estimateReceivedDay).format('DD-MM-YYYY')}</td>
-              <td>
+              <td className='flex gap-x-2'>
                 <Link
                   href={`/admin/tracking/update/${item.trackingNumber}`}
-                  className='btn btn-ghost text-accent btn-xs'
+                  className='btn btn-outline btn-sm text-info hover:bg-info/80 hover:border-white'
                 >
-                  Edit
+                  Detail
                 </Link>
+                <Link
+                  href={`/admin/tracking/update/${item.trackingNumber}/tracking-items`}
+                  className='btn btn-outline btn-sm text-ghost hover:bg-ghost/80 hover:border-white'
+                >
+                  Delivery
+                </Link>
+                <button
+                  type='button'
+                  className='btn btn-outline btn-sm text-error hover:bg-error/80 hover:border-white'
+                  onClick={() => handleDelete(item.id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

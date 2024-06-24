@@ -10,7 +10,7 @@ const InputCom = ({ type = 'text', title, plainText, value, onChange, status }) 
       value={value}
       onChange={onChange}
       type={type}
-      className='mt-2 -mb-8 input input-sm input-bordered min-w-full'
+      className='mt-2 -mb-8 input input-bordered min-w-full'
       placeholder={plainText}
       required
     />
