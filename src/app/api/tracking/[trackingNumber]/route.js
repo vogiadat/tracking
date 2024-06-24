@@ -43,3 +43,15 @@ export const PATCH = async (req, res) => {
     return NextResponse.json({ error }, { status: 500 })
   }
 }
+
+export const DELETE = async (req, res) => {
+  const { trackingNumber: id } = res.params
+  try {
+    await Tracking.destroy({ where: { id } })
+    revalidateTag(catching.GET_TRACKING_BY_ID)
+    return NextResponse.json(id, { status: 200 })
+  } catch (error) {
+    console.log({ error })
+    return NextResponse.json({ error }, { status: 500 })
+  }
+}

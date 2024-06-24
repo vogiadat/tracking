@@ -1,8 +1,8 @@
-import React from 'react'
+import Link from 'next/link'
 
 const page = () => {
     return (
-        <div>page</div>
+        <Link href="/admin/tracking" className="relative z-50 btn btn-accent text-base-100" >Tracking</Link>
     )
 }
 

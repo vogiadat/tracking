@@ -14,18 +14,18 @@ const Form = ({ packageData }) => {
     isUpdate
       ? packageData
       : {
-          id: '',
-          trackingNumber: '',
-          dateSend: '',
-          estimateReceivedDay: '',
-          from: '',
-          to: '',
-          packaging: '',
-          services: '',
-          terms: '',
-          totalPackage: '',
-          trackingItems: []
-        }
+        id: '',
+        trackingNumber: '',
+        dateSend: '',
+        estimateReceivedDay: '',
+        from: '',
+        to: '',
+        packaging: '',
+        services: '',
+        terms: '',
+        totalPackage: '',
+        trackingItems: []
+      }
   )
 
   const handleCreateStatus = ({ statusData, setStatusData }) => {
@@ -59,10 +59,6 @@ const Form = ({ packageData }) => {
     <>
       <h1 className='text-4xl text-center font-bold'>Shipment Information</h1>
       <div className='flex p-8 gap-8'>
-        <div className='flex-1'>
-          <h2 className='text-xl font-extrabold text-gray-900'>Delivery History</h2>
-          <TrackingList data={data.trackingItems} />
-        </div>
         <div className='flex-1'>
           <form className='' onSubmit={handleSubmit}>
             <div className='space-y-4'>
@@ -187,6 +183,10 @@ const Form = ({ packageData }) => {
               </button>
             </div>
           </form>
+        </div>
+        <div className='flex-1'>
+          <h2 className='text-xl font-extrabold text-gray-900'>Delivery History</h2>
+          <TrackingList data={data.trackingItems} />
         </div>
       </div>
     </>
