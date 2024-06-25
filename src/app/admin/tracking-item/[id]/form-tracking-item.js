@@ -9,7 +9,7 @@ const FromTrackingItem = async ({ handleSubmit, id, trackingId }) => {
     defaultValue = await getTrackingItem(id)
   }
 
-  const { status, location, title } = defaultValue
+  const { status, location, title, image } = defaultValue
 
   return (
     <form action={handleSubmit}>
@@ -42,12 +42,23 @@ const FromTrackingItem = async ({ handleSubmit, id, trackingId }) => {
             className='input input-bordered w-full max-w-xs'
           />
         </div>
-        <label className='border border-dashed rounded cursor-pointer flex items-center justify-center flex-col'>
-          <h6>Select Image</h6>
-          <div>
-            <Plus className='w-10' />
+        <label
+          className='border border-dashed rounded cursor-pointer flex items-center justify-center flex-col '
+          style={{
+            background: !!image
+              ? `url(${image}) no-repeat border-box center center`
+              : `rgb(240, 240, 240)`,
+            backgroundSize: 'cover'
+          }}
+        >
+          <div className='flex items-center justify-center flex-col bg-base-300/70 flex-1 w-full'>
+            <h6 className={'text-black font-bold'}>Select Image</h6>
+            <div>
+              <Plus className='w-10' />
+            </div>
           </div>
           <input
+            name='image'
             type='file'
             className='file-input file-input-bordered file-input-success w-full max-w-xs hidden'
           />

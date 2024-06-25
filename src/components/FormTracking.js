@@ -57,7 +57,7 @@ const FormTracking = async ({ handleSubmit, trackingId }) => {
                     </div>
                     <div className='col-span-full'>
                       <DateCom
-                        title={'Estimate ReceivedDay'}
+                        title={'Estimate Received Day'}
                         value={estimateReceivedDay}
                         id={'estimateReceivedDay'}
                         min={dateSend}
