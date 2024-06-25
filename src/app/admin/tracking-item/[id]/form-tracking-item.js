@@ -39,7 +39,7 @@ const FromTrackingItem = async ({ handleSubmit, id, trackingId }) => {
             name='status'
             defaultValue={status}
             type='text'
-            placeholder='Label'
+            placeholder='Status'
             className='input input-bordered w-full max-w-xs'
           />
         </div>

@@ -26,7 +26,7 @@ const SearchInput = () => {
           placeholder='Input Your Tracking Number'
           onChange={handleChangeInput}
         />
-        <button type='submit' className='btn btn-sm btn-accent'>
+        <button type='submit' className='btn btn-sm btn-accent text-base-100'>
           Tracking
         </button>
       </label>

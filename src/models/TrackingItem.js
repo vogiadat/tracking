@@ -9,9 +9,13 @@ const TrackingItem = sequelize.define(
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4
     },
-    status: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: true
     },
     location: {
       type: DataTypes.STRING,

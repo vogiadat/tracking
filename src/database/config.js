@@ -18,7 +18,7 @@ const sequelize = new Sequelize({
     console.info('Success ::: Connection has been established successfully.')
 
     // Sync defined models to the database
-    // await sequelize.sync({ alter: true }); // This will create tables if they don't exist or update the existing ones
+    // await sequelize.sync({ alter: true }) // This will create tables if they don't exist or update the existing ones
     return
   } catch (error) {
     console.error('Error ::: Unable to connect to the database:', error)
