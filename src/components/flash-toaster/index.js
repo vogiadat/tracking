@@ -5,7 +5,7 @@ import FlashToasterClient from './flash-toaster-client'
 export function setFlash(flash) {
   cookies().set('flash', JSON.stringify(flash), {
     path: '/',
-    expires: new Date(Date.now() + 10 * 1000)
+    expires: new Date(Date.now() + 1000)
   })
 }
 

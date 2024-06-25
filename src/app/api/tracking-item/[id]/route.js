@@ -7,9 +7,6 @@ export const DELETE = async (req, res) => {
   const { id } = res.params
   try {
     await TrackingItem.destroy({ where: { id } })
-
-    revalidateTag(catching.GET_TRACKING_BY_ID)
-
     return NextResponse.json(id, { status: 200 })
   } catch (error) {
     console.log({ error })

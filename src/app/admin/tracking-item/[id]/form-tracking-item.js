@@ -1,27 +1,18 @@
-import { compileURL } from '@/config/const'
 import { Plus } from 'lucide-react'
+import { getTrackingItem } from './cache/api'
 import CloseForm from './close-from'
 import SubmitButton from './submit-button'
 
-const FromTrackingItem = async ({ handleSubmit, id }) => {
+const FromTrackingItem = async ({ handleSubmit, id, trackingId }) => {
   let defaultValue = {}
 
   if (id) {
-    const res = await fetch(
-      compileURL(`/api/tracking-item/${id}`, {
-        next: { tags: [`tracking-item-${id}`] }
-      })
-    )
-    defaultValue = (await res.json()) || {}
+    defaultValue = await getTrackingItem(id)
   }
 
   const { status, location, title } = defaultValue
 
-  console.log({
-    status,
-    location,
-    title
-  })
+  console.log({ id })
 
   return (
     <form action={handleSubmit}>
@@ -29,6 +20,9 @@ const FromTrackingItem = async ({ handleSubmit, id }) => {
       <h3 className='font-bold text-lg mb-4'>New Deriver!</h3>
       <div className='grid grid-cols-2 gap-4'>
         <div className='flex flex-col gap-3'>
+          <input name='id' value={id} hidden />
+          <input name='trackingId' value={trackingId} hidden />
+
           <input
             type='text'
             name='title'

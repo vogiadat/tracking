@@ -6,13 +6,16 @@ import { NextResponse } from 'next/server'
 export const GET = async (req, res) => {
   const { id } = res.params
   try {
-    const isExistTracking = await Tracking.findOne({ where: { id } })
+    const isExistTracking = await Tracking.findOne({
+      where: { id }
+    })
     if (!isExistTracking) throw new Error()
 
     const data = await TrackingItem.findAll({
       where: {
         trackingId: id
-      }
+      },
+      order: [['createdAt', 'DESC']]
     })
 
     return NextResponse.json(data, { status: 200 })

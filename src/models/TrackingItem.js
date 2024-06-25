@@ -1,6 +1,5 @@
 import { DataTypes } from 'sequelize'
 import sequelize from '@/database/config'
-import Tracking from './Tracking'
 
 const TrackingItem = sequelize.define(
   'trackingitems',

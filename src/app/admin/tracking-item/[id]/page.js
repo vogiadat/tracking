@@ -1,49 +1,17 @@
-import { setFlash } from '@/components/flash-toaster'
-import { revalidatePath, revalidateTag } from 'next/cache'
-import { redirect } from 'next/navigation'
+import { getTrackingItems } from './cache/api'
 import CardCreate from './card-create'
-import TrackingItem from './tracking-item'
 import FormTrackingItem from './form-tracking-item'
-import { compileURL } from '@/config/const'
+import { handleSubmit } from './server/action'
+import TrackingItem from './tracking-item'
 
 const Page = async ({ params, searchParams }) => {
   const { isOpenFormCreate, trackingItemId } = searchParams
-
-  const url = compileURL(`/api/tracking-item/tracking/${params.id}`)
-  const res = await fetch(url, { next: { tags: [`tracking-item`] } })
-
-  const trackingItems = await res.json()
-
-  const handleSubmit = async (formData) => {
-    'use server'
-
-    const isUpdate = !!trackingItemId
-
-    const rawFormData = {
-      title: formData.get('title'),
-      location: formData.get('location'),
-      status: formData.get('status')
-    }
-
-    const requestUrl = isUpdate ? compileURL(`/api/tracking-item/${trackingItemId}`) : url
-
-    const res = await fetch(requestUrl, {
-      method: isUpdate ? 'PATCH' : 'POST',
-      body: JSON.stringify(rawFormData)
-    })
-
-    await res.json()
-
-    setFlash({ type: 'success', message: 'success' })
-    revalidateTag(`tracking-item-${trackingItemId}`)
-    revalidateTag('tracking-item')
-
-    redirect(`/admin/tracking-item/${params.id}`)
-  }
+  const { isOk, trackingItems } = await getTrackingItems(params.id)
+  const openForm = isOpenFormCreate || trackingItemId
 
   return (
     <div className='w-full container h-full mt-4'>
-      {res.ok ? (
+      {isOk ? (
         <div>
           <div className='grid gap-4 lg:grid-cols-4 sm:grid-cols-3 grid-cols-2'>
             <CardCreate trackingId={params.id} />
@@ -52,11 +20,14 @@ const Page = async ({ params, searchParams }) => {
             ))}
           </div>
 
-          <dialog id='my_modal_3' className='modal' open={!!isOpenFormCreate || !!trackingItemId}>
+          <dialog id='my_modal_3' className='modal' open={openForm}>
             <div className='modal-box min-w-[700px]'>
-              {isOpenFormCreate && <FormTrackingItem handleSubmit={handleSubmit} />}
-              {trackingItemId && (
-                <FormTrackingItem id={trackingItemId} handleSubmit={handleSubmit} />
+              {openForm && (
+                <FormTrackingItem
+                  id={trackingItemId}
+                  handleSubmit={handleSubmit}
+                  trackingId={params.id}
+                />
               )}
             </div>
           </dialog>
