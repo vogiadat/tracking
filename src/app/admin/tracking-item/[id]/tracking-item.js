@@ -11,7 +11,17 @@ const TrackingItem = ({ status, location, createdAt, id }) => {
           <Link href={{ query: { trackingItemId: id } }} className='btn btn-primary'>
             Update
           </Link>
-          <button className='btn btn-ghost'>Deny</button>
+          <Link
+            href={{
+              query: {
+                isOpenFormDelete: true,
+                trackingItemId: id
+              }
+            }}
+            className='btn btn-ghost'
+          >
+            Deny
+          </Link>
         </div>
       </div>
     </div>

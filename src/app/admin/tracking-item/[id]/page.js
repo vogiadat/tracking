@@ -1,13 +1,19 @@
 import { getTrackingItems } from './cache/api'
 import CardCreate from './card-create'
+import FormDelete from './form-delete'
 import FormTrackingItem from './form-tracking-item'
 import { handleSubmit } from './server/action'
 import TrackingItem from './tracking-item'
 
 const Page = async ({ params, searchParams }) => {
-  const { isOpenFormCreate, trackingItemId } = searchParams
+  const { isOpenFormCreate, trackingItemId, isOpenFormDelete } = searchParams
   const { isOk, trackingItems } = await getTrackingItems(params.id)
-  const openForm = isOpenFormCreate || trackingItemId
+
+  const openDelete = isOpenFormDelete && trackingItemId
+  const openCreate = isOpenFormCreate
+  const openUpdate = trackingItemId && !isOpenFormDelete
+
+  const open = openDelete || openCreate || openUpdate
 
   return (
     <div className='w-full container h-full mt-4'>
@@ -20,15 +26,17 @@ const Page = async ({ params, searchParams }) => {
             ))}
           </div>
 
-          <dialog id='my_modal_3' className='modal' open={openForm}>
+          <dialog id='my_modal_3' className='modal' open={open}>
             <div className='modal-box min-w-[700px]'>
-              {openForm && (
+              {(openCreate || openUpdate) && (
                 <FormTrackingItem
                   id={trackingItemId}
                   handleSubmit={handleSubmit}
                   trackingId={params.id}
                 />
               )}
+
+              {openDelete && <FormDelete trackingId={params.id} id={trackingItemId} />}
             </div>
           </dialog>
         </div>

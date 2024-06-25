@@ -32,3 +32,20 @@ export const handleSubmit = async (formData) => {
   resetCache(!!id)
   redirect(`/admin/tracking-item/${trackingId}`)
 }
+
+export const handleDelete = async (formData) => {
+  const id = formData.get('id')
+  const trackingId = formData.get('trackingId')
+
+  const requestUrl = compileURL(`/api/tracking-item/${id}`)
+  const method = 'DELETE'
+
+  await fetch(requestUrl, {
+    method
+  })
+
+  setFlash({ type: 'success', message: 'success' })
+  resetCache(false)
+
+  redirect(`/admin/tracking-item/${trackingId}`)
+}
