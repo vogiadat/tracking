@@ -2,14 +2,14 @@
 import React from 'react'
 import { useFormStatus } from 'react-dom'
 
-const DeleteButton = () => {
+const ButtonDelete = ({ customClassName = '' }) => {
   const { pending } = useFormStatus()
 
   return (
-    <button className={`btn btn-active btn-error`} disabled={pending}>
+    <button className={`btn btn-active btn-error ${customClassName}`} disabled={pending}>
       {pending ? <span className='loading loading-spinner'></span> : 'Confirm'}
     </button>
   )
 }
 
-export default DeleteButton
+export default ButtonDelete

@@ -1,14 +1,13 @@
-const InputCom = ({ type = 'text', title, plainText, value, onChange, status }) => (
+const InputCom = ({ type = 'text', id, title, plainText, value, status }) => (
   <>
-    <label className='font-bold text-sm' htmlFor={title}>
+    <label className='font-bold text-sm' htmlFor={id}>
       {title}
     </label>
     <input
       disabled={status}
-      id={title}
-      name={title}
-      value={value}
-      onChange={onChange}
+      id={id}
+      name={id}
+      defaultValue={value}
       type={type}
       className='mt-2 -mb-8 input input-bordered min-w-full'
       placeholder={plainText}

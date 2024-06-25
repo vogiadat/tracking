@@ -1,11 +1,11 @@
 'use client'
 import { useRouter } from 'next/navigation'
 
-const ButtonCancel = () => {
+const ButtonCancel = ({ customClassName = '' }) => {
   const router = useRouter()
 
   return (
-    <button className='btn' type='button' onClick={router.back}>
+    <button className={`btn ${customClassName}`} type='button' onClick={router.back}>
       Cancel
     </button>
   )

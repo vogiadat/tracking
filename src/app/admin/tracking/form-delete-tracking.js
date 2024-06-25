@@ -1,19 +1,18 @@
-import { getTrackingItem } from './cache/api'
-import { ButtonCancel, CloseForm, ButtonDelete } from '@/components/ui/form'
-import { handleDelete } from './server/action'
+import { CloseForm, ButtonCancel, ButtonDelete } from '@/components/ui/form'
+import { getDetailTracking, handleDelete } from './cache/api'
 
-const FormDelete = async ({ id, trackingId }) => {
+const FormDeleteTracking = async ({ trackingId, trackingNumber }) => {
   let defaultValue = {}
 
-  if (id) {
-    defaultValue = await getTrackingItem(id)
+  if (trackingId) {
+    defaultValue = await getDetailTracking(trackingNumber)
   }
 
   return (
     <form action={handleDelete}>
-      <CloseForm id={id} />
-      <input name='id' defaultValue={id} hidden />
-      <input name='trackingId' defaultValue={trackingId} hidden />
+      <CloseForm id={trackingId} />
+      <input name='id' defaultValue={trackingId} hidden />
+      <input name='trackingNumber' defaultValue={trackingNumber} hidden />
 
       <h3 className='font-bold text-lg mb-4'>Delete!</h3>
       <div role='alert' className='alert alert-warning'>
@@ -33,7 +32,7 @@ const FormDelete = async ({ id, trackingId }) => {
         <span>
           Warning:
           <br />
-          Do you want to delete delivery status with Title: {defaultValue.title}!
+          Do you want to delete tracking with TrackingNumber: {defaultValue.trackingNumber}!
         </span>
       </div>
       <div className='mt-6 flex justify-end gap-2'>
@@ -46,4 +45,4 @@ const FormDelete = async ({ id, trackingId }) => {
 
 export const dynamic = 'force-dynamic'
 
-export default FormDelete
+export default FormDeleteTracking

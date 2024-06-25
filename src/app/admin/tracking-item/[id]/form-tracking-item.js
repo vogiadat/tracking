@@ -1,7 +1,6 @@
 import { Plus } from 'lucide-react'
 import { getTrackingItem } from './cache/api'
-import CloseForm from './close-from'
-import SubmitButton from './submit-button'
+import { CloseForm, ButtonSubmit } from '@/components/ui/form'
 
 const FromTrackingItem = async ({ handleSubmit, id, trackingId }) => {
   let defaultValue = {}
@@ -56,7 +55,7 @@ const FromTrackingItem = async ({ handleSubmit, id, trackingId }) => {
       </div>
 
       <div className='mt-6 '>
-        <SubmitButton />
+        <ButtonSubmit customClassName='w-full' />
       </div>
     </form>
   )
