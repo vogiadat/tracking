@@ -4,12 +4,11 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { DateCom, InputCom } from '@/components/ui'
-import { TrackingItem, TrackingItemCom, TrackingList } from '@/components/tracking'
 
 const Form = () => {
-  const { trackingNumber } = useParams()
+  const params = useParams()
   const router = useRouter()
-  const isUpdate = !!trackingNumber
+  const isUpdate = !!params.id
   const [data, setData] = useState({
     trackingNumber: '',
     dateSend: '',
@@ -24,7 +23,7 @@ const Form = () => {
   })
 
   const fetchData = async () => {
-    const res = await fetch(`/api/tracking/${trackingNumber}`)
+    const res = await fetch(`/api/tracking/${params.id}`)
     const value = await res.json()
     return setData(value)
   }
@@ -45,8 +44,8 @@ const Form = () => {
   }
 
   useEffect(() => {
-    if (trackingNumber) fetchData()
-  }, [trackingNumber])
+    if (params.id) fetchData()
+  }, [params.id])
 
   return (
     <>

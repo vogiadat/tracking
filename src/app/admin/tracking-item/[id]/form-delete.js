@@ -13,8 +13,6 @@ const FormDelete = async ({ id, trackingId }) => {
     defaultValue = await getTrackingItem(id)
   }
 
-  console.log({ id })
-
   return (
     <form action={handleDelete}>
       <CloseForm id={id} />

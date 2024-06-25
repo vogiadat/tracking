@@ -15,7 +15,7 @@ const sequelize = new Sequelize({
 ;(async () => {
   try {
     await sequelize.authenticate()
-    console.log('Success ::: Connection has been established successfully.')
+    console.info('Success ::: Connection has been established successfully.')
 
     // Sync defined models to the database
     // await sequelize.sync({ alter: true }); // This will create tables if they don't exist or update the existing ones

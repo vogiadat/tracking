@@ -12,8 +12,6 @@ const FromTrackingItem = async ({ handleSubmit, id, trackingId }) => {
 
   const { status, location, title } = defaultValue
 
-  console.log({ id })
-
   return (
     <form action={handleSubmit}>
       <CloseForm id={id} />

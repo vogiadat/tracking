@@ -6,7 +6,6 @@ const FlashToasterClient = (props) => {
   useEffect(() => {
     if (!!props.flash) {
       const { type, message } = JSON.parse(props.flash)
-      console.log({ type })
       type === 'loading' ? toast.loading() : toast.dismiss()
       if (type === 'success') {
         toast.success(message)
