@@ -148,15 +148,11 @@ const Form = () => {
                   </div>
                 </div>
               </div>
-
             </div>
 
             <div className='mt-6 flex items-center justify-end gap-x-6'>
               <div>
-                <Link
-                  href='/admin/tracking'
-                  className='btn btn-error text-base-100'
-                >
+                <Link href='/admin/tracking' className='btn btn-error text-base-100'>
                   Cancel
                 </Link>
                 <button type='submit' className='ml-5 btn btn-info text-base-100'>

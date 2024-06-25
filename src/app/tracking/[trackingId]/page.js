@@ -10,8 +10,8 @@ const TrackingDetail = async ({ params }) => {
   const data = await getTrackingById(trackingId)
 
   if (!data) {
-    alert("Not found data")
-    return redirect("/")
+    alert('Not found data')
+    return redirect('/')
   }
 
   return (
@@ -66,7 +66,9 @@ const TrackingDetail = async ({ params }) => {
           </div>
           <div className='mt-8 relative overflow-x-auto shadow-md'>
             <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
-              <caption className='text-center text-base font-bold text-accent'>PACKAGE DETAILS</caption>
+              <caption className='text-center text-base font-bold text-accent'>
+                PACKAGE DETAILS
+              </caption>
               <tbody>
                 <TableRow title={'Packaging'} data={data.packaging} />
                 <TableRow title={'Total Package'} data={data.totalPackage} />
