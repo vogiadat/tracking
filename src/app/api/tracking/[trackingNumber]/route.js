@@ -11,7 +11,17 @@ export const GET = async (req, res) => {
       include: {
         model: TrackingItem,
         as: 'trackingItems'
-      }
+      },
+      order: [
+        [
+          {
+            model: TrackingItem,
+            as: 'trackingItems'
+          },
+          'createdAt',
+          'DESC'
+        ]
+      ]
     })
 
     return NextResponse.json(res, { status: 200 })

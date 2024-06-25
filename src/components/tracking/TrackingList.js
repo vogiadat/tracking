@@ -24,8 +24,11 @@ const TrackingList = ({ data }) => {
             </svg>
           </div>
           <div className='timeline-end md:text-start mt-8'>
-            <div className='text-lg font-black text-accent'>{item.status}</div>
-            <span className='text-zinc-500 font-semibold'>{item.location}</span>
+            <div className='text-lg font-black text-accent'>
+              {item.title || 'No Data'}
+              <span className='badge badge-info text-base-100 font-normal mx-1'>{item.status}</span>
+            </div>
+            <p className='text-zinc-500 font-semibold'>{item.location}</p>
           </div>
           <hr />
         </li>
