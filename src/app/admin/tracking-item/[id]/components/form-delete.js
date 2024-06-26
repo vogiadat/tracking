@@ -1,6 +1,6 @@
-import { getTrackingItem } from './cache/api'
+import { getTrackingItem } from '../cache/api'
 import { ButtonCancel, CloseForm, ButtonDelete } from '@/components/ui/form'
-import { handleDelete } from './server/action'
+import { handleDelete } from '../server/action'
 
 const FormDelete = async ({ id, trackingId }) => {
   let defaultValue = {}

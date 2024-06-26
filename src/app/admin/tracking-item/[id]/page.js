@@ -1,9 +1,11 @@
+import { Suspense } from 'react'
 import { getTrackingItems } from './cache/api'
-import CardCreate from './card-create'
-import FormDelete from './form-delete'
-import FormTrackingItem from './form-tracking-item'
+import CardCreate from './components/card-create'
+import FormDelete from './components/form-delete'
+import FormTrackingItem from './components/form-tracking-item'
 import { handleSubmit } from './server/action'
-import TrackingItem from './tracking-item'
+import TrackingItem from './components/tracking-item'
+import Loading from './components/loading'
 
 const Page = async ({ params, searchParams }) => {
   const { isOpenFormCreate, trackingItemId, isOpenFormDelete } = searchParams
@@ -29,14 +31,20 @@ const Page = async ({ params, searchParams }) => {
           <dialog id='my_modal_3' className='modal' open={open}>
             <div className='modal-box min-w-[700px]'>
               {(openCreate || openUpdate) && (
-                <FormTrackingItem
-                  id={trackingItemId}
-                  handleSubmit={handleSubmit}
-                  trackingId={params.id}
-                />
+                <Suspense fallback={<Loading />}>
+                  <FormTrackingItem
+                    id={trackingItemId}
+                    handleSubmit={handleSubmit}
+                    trackingId={params.id}
+                  />
+                </Suspense>
               )}
 
-              {openDelete && <FormDelete trackingId={params.id} id={trackingItemId} />}
+              {openDelete && (
+                <Suspense fallback={<Loading />}>
+                  <FormDelete trackingId={params.id} id={trackingItemId} />
+                </Suspense>
+              )}
             </div>
           </dialog>
         </div>

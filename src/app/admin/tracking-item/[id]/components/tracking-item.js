@@ -19,10 +19,15 @@ const TrackingItem = ({ title, status, image, location, createdAt, id }) => {
         <h2 className='card-title'>{title || 'no update'}</h2>
         <p>location: {location || 'no update'}</p>
         <div className='card-actions justify-end'>
-          <Link href={{ query: { trackingItemId: id } }} className='btn btn-info text-base-100'>
+          <Link
+            prefetch
+            href={{ query: { trackingItemId: id } }}
+            className='btn btn-info text-base-100'
+          >
             Update
           </Link>
           <Link
+            prefetch
             href={{
               query: {
                 isOpenFormDelete: true,
