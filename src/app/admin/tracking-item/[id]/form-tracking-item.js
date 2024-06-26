@@ -1,6 +1,7 @@
 import { Plus } from 'lucide-react'
 import { getTrackingItem } from './cache/api'
 import { CloseForm, ButtonSubmit } from '@/components/ui/form'
+import InputFileImage from './server/input-file-img'
 
 const FromTrackingItem = async ({ handleSubmit, id, trackingId }) => {
   let defaultValue = {}
@@ -42,27 +43,7 @@ const FromTrackingItem = async ({ handleSubmit, id, trackingId }) => {
             className='input input-bordered w-full max-w-xs'
           />
         </div>
-        <label
-          className='border border-dashed rounded cursor-pointer flex items-center justify-center flex-col '
-          style={{
-            background: !!image
-              ? `url(${image}) no-repeat border-box center center`
-              : `rgb(240, 240, 240)`,
-            backgroundSize: 'cover'
-          }}
-        >
-          <div className='flex items-center justify-center flex-col bg-base-300/70 flex-1 w-full'>
-            <h6 className={'text-black font-bold'}>Select Image</h6>
-            <div>
-              <Plus className='w-10' />
-            </div>
-          </div>
-          <input
-            name='image'
-            type='file'
-            className='file-input file-input-bordered file-input-success w-full max-w-xs hidden'
-          />
-        </label>
+        <InputFileImage defaultImage={image} />
       </div>
 
       <div className='mt-6 '>
