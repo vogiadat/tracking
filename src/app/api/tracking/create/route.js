@@ -5,7 +5,10 @@ export const POST = async (req) => {
   try {
     const data = await req.json()
 
-    const resTracking = await Tracking.create({ ...data })
+    const resTracking = await Tracking.create({
+      ...data,
+      trackingNumber: data.trackingNumber.toUpperCase()
+    })
 
     return NextResponse.json({ resTracking }, { status: 200 })
   } catch (error) {

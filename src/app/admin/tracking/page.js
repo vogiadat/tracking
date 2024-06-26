@@ -94,7 +94,7 @@ const Row = ({ id, trackingNumber, from, to, dateSend, estimateReceivedDay }) =>
         </Link>
         <Link
           href={{
-            query: { trackingId: id, isOpenFormDelete: true, trackingNumber }
+            query: { trackingId: id, trackingNumber, isOpenFormDelete: true }
           }}
           className='btn btn-outline btn-sm text-error hover:bg-error/80 hover:border-white'
         >

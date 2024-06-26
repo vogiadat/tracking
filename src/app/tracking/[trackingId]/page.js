@@ -22,10 +22,10 @@ const TrackingDetail = async ({ params }) => {
             <div className='stat'>
               <div className='stat-title'>Delivery Status</div>
               <div className='stat-value text-primary'>
-                {data.trackingItems?.at(0).location || ''}
+                {data.trackingItems?.at(0)?.location || data.from || ''}
               </div>
               <div className='stat-desc font-bold text-lg'>
-                {data.trackingItems?.at(0).status || ''}
+                {data.trackingItems?.at(0)?.status || ''}
               </div>
             </div>
 
@@ -34,7 +34,7 @@ const TrackingDetail = async ({ params }) => {
               <div className='stat-value text-primary'>
                 {data.trackingItems.at(0)
                   ? moment(data.trackingItems.at(0).createdAt).format('MMMM Do YYYY - HH:MM:SS')
-                  : ''}
+                  : moment(data.createdAt).format('MMMM Do YYYY - HH:MM:SS') || ''}
               </div>
               <div className='stat-desc text-secondary'>Local Time</div>
             </div>

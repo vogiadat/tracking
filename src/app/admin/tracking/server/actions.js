@@ -3,7 +3,7 @@
 import { setFlash } from '@/components/flash-toaster'
 import { compileURL } from '@/config/const'
 import { redirect } from 'next/navigation'
-import { resetCache } from '../cache/api'
+import { resetCache } from '@/app/admin/tracking/cache/api'
 
 export const handleSubmit = async (formData) => {
   const id = formData.get('id')
@@ -46,5 +46,5 @@ export const handleDelete = async (formData) => {
   setFlash({ type: 'success', message: 'success' })
   resetCache(false)
 
-  redirect(`/admin/tracking`)
+  redirect('/admin/tracking')
 }

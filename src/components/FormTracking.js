@@ -5,7 +5,8 @@ import { ButtonCancel, ButtonSubmit } from '@/components/ui/form'
 const FormTracking = async ({ handleSubmit, trackingId }) => {
   let defaultValue = {}
 
-  if (trackingId) {
+  const isExit = !!trackingId
+  if (isExit) {
     defaultValue = await getDetailTracking(trackingId)
   }
 
@@ -35,32 +36,45 @@ const FormTracking = async ({ handleSubmit, trackingId }) => {
                   <div className='mt-2 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6'>
                     <div className='col-span-full'>
                       <InputCom
+                        isDisabled={isExit}
                         title={'Tracking Number'}
                         id={'trackingNumber'}
+                        name={'trackingNumber'}
                         plainText={'Tracking Number'}
                         value={trackingNumber}
+                        className='uppercase'
                       />
                     </div>
                     <div className='col-span-full'>
-                      <InputCom title={'From'} plainText={'From'} value={from} id={'from'} />
+                      <InputCom
+                        title={'From'}
+                        plainText={'From'}
+                        value={from}
+                        id={'from'}
+                        name={'from'}
+                      />
                     </div>
                     <div className='col-span-full'>
-                      <InputCom title={'To'} plainText={'To'} value={to} id={'to'} />
+                      <InputCom title={'To'} plainText={'To'} value={to} id={'to'} name={'to'} />
                     </div>
                     <div className='col-span-full'>
                       <DateCom
                         title={'Date Send'}
                         value={dateSend}
-                        id={'dateSend'}
+                        min={dateSend}
                         max={estimateReceivedDay}
+                        id={'dateSend'}
+                        name={'dateSend'}
                       />
                     </div>
                     <div className='col-span-full'>
                       <DateCom
                         title={'Estimate Received Day'}
+                        min={dateSend}
+                        max={estimateReceivedDay}
                         value={estimateReceivedDay}
                         id={'estimateReceivedDay'}
-                        min={dateSend}
+                        name={'estimateReceivedDay'}
                       />
                     </div>
                   </div>
@@ -77,10 +91,11 @@ const FormTracking = async ({ handleSubmit, trackingId }) => {
                         plainText={''}
                         value={services}
                         id={'services'}
+                        name={'services'}
                       />
                     </div>
                     <div className='col-span-full'>
-                      <InputCom title={'Terms'} value={terms} id={'terms'} />
+                      <InputCom title={'Terms'} value={terms} id={'terms'} name={'terms'} />
                     </div>
                   </div>
                 </div>
@@ -93,10 +108,16 @@ const FormTracking = async ({ handleSubmit, trackingId }) => {
                         plainText={''}
                         value={packaging}
                         id={'packaging'}
+                        name={'packaging'}
                       />
                     </div>
                     <div className='col-span-full'>
-                      <InputCom title={'Total Package'} value={totalPackage} id={'totalPackage'} />
+                      <InputCom
+                        title={'Total Package'}
+                        value={totalPackage}
+                        id={'totalPackage'}
+                        name={'totalPackage'}
+                      />
                     </div>
                   </div>
                 </div>

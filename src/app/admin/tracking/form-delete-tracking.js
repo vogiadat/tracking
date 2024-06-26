@@ -1,5 +1,6 @@
 import { CloseForm, ButtonCancel, ButtonDelete } from '@/components/ui/form'
-import { getDetailTracking, handleDelete } from './cache/api'
+import { getDetailTracking } from './cache/api'
+import { handleDelete } from './server/actions'
 
 const FormDeleteTracking = async ({ trackingId, trackingNumber }) => {
   let defaultValue = {}
