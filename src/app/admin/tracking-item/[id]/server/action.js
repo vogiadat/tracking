@@ -4,7 +4,7 @@ import { setFlash } from '@/components/flash-toaster'
 import { compileURL } from '@/config/const'
 import { resetCache } from '../cache/api'
 import { redirect } from 'next/navigation'
-import { writeFile } from 'fs/promises'
+import { writeFile, readFile } from 'fs/promises'
 import { v4 as uuid } from 'uuid'
 import path from 'path'
 
@@ -12,7 +12,7 @@ export const handleSubmit = async (formData) => {
   const id = formData.get('id')
   const trackingId = formData.get('trackingId')
   const file = formData.get('image')
-  const image = await handleUpload(file)
+  const image = typeof file === 'string' ? file : await handleUpload(file)
 
   const rawFormData = {
     title: formData.get('title'),

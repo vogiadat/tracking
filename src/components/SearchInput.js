@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { resetCache } from '@/app/admin/tracking/cache/api'
 
 const SearchInput = () => {
   const router = useRouter()
@@ -13,7 +14,8 @@ const SearchInput = () => {
   }
 
   const handleSubmit = () => {
-    router.push(`/tracking/${trackingId}`)
+    resetCache(true)
+    return router.push(`/tracking/${trackingId}`)
   }
 
   return (

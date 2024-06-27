@@ -1,16 +1,18 @@
 'use client'
 
+import { compileURL } from '@/config/const'
 import moment from 'moment'
 import Image from 'next/image'
 
 const TrackingItemList = ({ createdAt, title, status, location, image }) => {
   const isExistImage = !!image
 
+  const handleModal = () => {
+    document.getElementById('my_modal_3').showModal()
+  }
+
   return (
-    <li
-      className={isExistImage ? 'cursor-pointer' : 'cursor-not-allowed'}
-      onClick={() => isExistImage && document.getElementById('my_modal_3').showModal()}
-    >
+    <li>
       <dialog id='my_modal_3' className='modal'>
         <div className='modal-box'>
           <form method='dialog'>
@@ -20,15 +22,17 @@ const TrackingItemList = ({ createdAt, title, status, location, image }) => {
           <div
             className='w-full h-80 rounded-2xl'
             style={{
-              background: `url(${image}) no-repeat border-box center center`,
+              background: `url('${image}') no-repeat border-box center center`,
               backgroundSize: 'cover'
             }}
-          ></div>
+          />
         </div>
       </dialog>
       <hr />
-      <div className='timeline-start badge badge-accent text-base-100'>
-        {moment(createdAt).format('MMMM Do YYYY - HH:MM:SS')}
+      <div className='timeline-start text-center text-base-100'>
+        <div className='bg-accent rounded-full px-2'>
+          {moment(createdAt).format('MMMM Do YYYY HH:MM:SS')}
+        </div>
       </div>
       <div className='timeline-middle px-6'>
         <svg
@@ -46,10 +50,24 @@ const TrackingItemList = ({ createdAt, title, status, location, image }) => {
       </div>
       <div className='timeline-end md:text-start mt-8'>
         <div className='text-lg font-black text-accent'>
-          {title || 'No Data'}
-          <span className='badge badge-info text-base-100 font-normal mx-1'>{status}</span>
+          <span className='mr-1'>{title || 'No Data'}</span>
+          <span className='badge badge-info text-base-100 font-normal'>{status}</span>
         </div>
-        <p className='text-zinc-500 font-semibold'>{location}</p>
+        <div className='text-zinc-500 font-semibold flex gap-8 my-1'>
+          <p>{location}</p>
+          {isExistImage && (
+            <div className='h-6 w-6'>
+              <Image
+                src={image}
+                alt={title}
+                width={0}
+                height={0}
+                className={'cursor-pointer w-full h-full object-cover border'}
+                onClick={() => isExistImage && handleModal(image)}
+              />
+            </div>
+          )}
+        </div>
       </div>
       <hr />
     </li>

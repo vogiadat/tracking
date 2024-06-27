@@ -27,6 +27,7 @@ const InputFileImage = ({ defaultImage }) => {
           : `rgb(240, 240, 240)`,
         backgroundSize: 'cover'
       }}
+      onClick={() => setImage('')}
     >
       <div className='flex items-center justify-center flex-col bg-base-300/70 flex-1 w-full'>
         <h6 className={'text-black font-bold'}>Select Image</h6>
@@ -37,7 +38,8 @@ const InputFileImage = ({ defaultImage }) => {
 
       <input
         name='image'
-        type='file'
+        type={image === defaultImage ? 'text' : 'file'}
+        defaultValue={defaultImage}
         className='file-input file-input-bordered file-input-success w-full max-w-xs hidden'
         onChange={handleChangeImage}
       />

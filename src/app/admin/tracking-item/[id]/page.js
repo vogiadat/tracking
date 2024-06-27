@@ -6,10 +6,13 @@ import FormTrackingItem from './components/form-tracking-item'
 import { handleSubmit } from './server/action'
 import TrackingItem from './components/tracking-item'
 import Loading from './components/loading'
+import { TrackingList } from '@/components/tracking'
 
 const Page = async ({ params, searchParams }) => {
   const { isOpenFormCreate, trackingItemId, isOpenFormDelete } = searchParams
   const { isOk, trackingItems } = await getTrackingItems(params.id)
+
+  const isExistList = trackingItems.length > 0
 
   const openDelete = isOpenFormDelete && trackingItemId
   const openCreate = isOpenFormCreate
@@ -20,12 +23,18 @@ const Page = async ({ params, searchParams }) => {
   return (
     <div className='w-full container h-full mt-4'>
       {isOk ? (
-        <div>
-          <div className='grid gap-4 lg:grid-cols-4 sm:grid-cols-3 grid-cols-2'>
+        <div className='grid gap-4 lg:grid-cols-4 sm:grid-cols-3 grid-cols-2'>
+          <div
+            className={`${isExistList ? 'col-span-3' : 'col-span-full'} grid gap-4 lg:grid-cols-4 sm:grid-cols-3 grid-cols-2`}
+          >
             <CardCreate trackingId={params.id} />
             {trackingItems.map((trackingItem) => (
               <TrackingItem {...trackingItem} key={trackingItem.id} />
             ))}
+          </div>
+
+          <div className={isExistList ? 'col-span-1' : ''}>
+            <TrackingList data={trackingItems} />
           </div>
 
           <dialog id='my_modal_3' className='modal' open={open}>

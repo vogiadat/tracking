@@ -18,7 +18,6 @@ const TrackingDetail = async ({ params }) => {
               <div className='stat-title'>Tracking Number</div>
               <div className='stat-value text-primary'>{data.trackingNumber}</div>
             </div>
-
             <div className='stat'>
               <div className='stat-title'>Delivery Status</div>
               <div className='stat-value text-primary'>
@@ -28,7 +27,6 @@ const TrackingDetail = async ({ params }) => {
                 {data.trackingItems?.at(0)?.status || ''}
               </div>
             </div>
-
             <div className='stat'>
               <div className='stat-title'>Date Time</div>
               <div className='stat-value text-primary'>
@@ -39,8 +37,8 @@ const TrackingDetail = async ({ params }) => {
               <div className='stat-desc text-secondary'>Local Time</div>
             </div>
           </div>
-          <div className='flex p-8 gap-8'>
-            <div className='flex-1'>
+          <div className='flex max-lg:flex-col gap-8'>
+            <div className='flex-1 p-8'>
               <h1 className='w-full text-xl text-center font-extrabold text-gray-900'>
                 Shipment Information
               </h1>
@@ -81,7 +79,7 @@ const TrackingDetail = async ({ params }) => {
                 </table>
               </div>
             </div>
-            <div className='flex-1'>
+            <div className='flex-1 p-8'>
               <h2 className='w-full text-xl text-center font-extrabold text-gray-900'>
                 Delivery History
               </h2>
@@ -94,7 +92,7 @@ const TrackingDetail = async ({ params }) => {
           <div role='alert' className='alert'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-6 w-6 shrink-0 stroke-current'
+              className='h-6 w-6 shrink-0 stroke-current text-error'
               fill='none'
               viewBox='0 0 24 24'
             >
