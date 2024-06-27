@@ -12,15 +12,16 @@ export const handleSubmit = async (formData) => {
   const id = formData.get('id')
   const trackingId = formData.get('trackingId')
   const file = formData.get('image')
-  const imageDefault = formData.get('defaultImage')
-
-  const image = file.size <= 0 ? imageDefault : await handleUpload(file)
 
   const rawFormData = {
     title: formData.get('title'),
     location: formData.get('location'),
-    status: formData.get('status'),
-    image
+    status: formData.get('status')
+  }
+
+  if (file.size) {
+    const image = await handleUpload(file)
+    rawFormData.image = image
   }
 
   const requestUrl = id

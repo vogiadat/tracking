@@ -1,41 +1,16 @@
-'use client'
-
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { resetCache } from '@/app/admin/tracking/cache/api'
-import Link from 'next/link'
-
-const SearchInput = () => {
-  const router = useRouter()
-  const [trackingId, setTrackingId] = useState('')
-
-  const handleChangeInput = (e) => {
-    const search = e.target.value.toString().toUpperCase()
-    setTrackingId(search)
-  }
-
-  const handleSubmit = () => {
-    resetCache(true)
-    return router.push(`/tracking/${trackingId}`)
-  }
-
+const SearchInput = ({ handleSubmit }) => {
   return (
     <form action={handleSubmit}>
       <label className='input input-bordered input-accent flex items-center gap-2 '>
         <input
           type='text'
-          value={trackingId}
           className='grow text-zinc-700'
           placeholder='Search by tracking number'
-          onChange={handleChangeInput}
+          name='trackingId'
         />
-        <Link
-          href={`/tracking/${trackingId}`}
-          onClick={() => resetCache(true)}
-          className='btn btn-sm btn-accent text-base-100'
-        >
+        <button type='submit' className='btn btn-sm btn-accent text-base-100'>
           Tracking
-        </Link>
+        </button>
       </label>
     </form>
   )
