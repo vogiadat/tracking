@@ -13,7 +13,7 @@ const SearchInput = () => {
   }
 
   const handleSubmit = () => {
-    return router.push(`/tracking/${trackingId}`)
+    router.push(`/tracking/${trackingId}`)
   }
 
   return (

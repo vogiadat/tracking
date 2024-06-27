@@ -1,5 +1,4 @@
 import SearchInput from '@/components/SearchInput'
-import Link from 'next/link'
 
 const Page = async () => {
   return (
