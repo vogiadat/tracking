@@ -16,10 +16,10 @@ const FormDelete = async ({ id, trackingId }) => {
       <input name='trackingId' defaultValue={trackingId} hidden />
 
       <h3 className='font-bold text-lg mb-4'>Delete!</h3>
-      <div role='alert' className='alert alert-warning'>
+      <div role='alert' className='alert'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
-          className='h-6 w-6 shrink-0 stroke-current'
+          className='h-6 w-6 shrink-0 stroke-current text-warning'
           fill='none'
           viewBox='0 0 24 24'
         >
@@ -31,9 +31,10 @@ const FormDelete = async ({ id, trackingId }) => {
           />
         </svg>
         <span>
-          Warning:
+          <span className='text-warning font-bold'>Warning:</span>
           <br />
-          Do you want to delete delivery status with Title: {defaultValue.title}!
+          Do you want to delete delivery status with Title:{' '}
+          <span className='badge badge-warning'>{defaultValue.title || 'no update'}</span>!
         </span>
       </div>
       <div className='mt-6 flex justify-end gap-2'>

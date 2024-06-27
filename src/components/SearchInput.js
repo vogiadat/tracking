@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { resetCache } from '@/app/admin/tracking/cache/api'
+import Link from 'next/link'
 
 const SearchInput = () => {
   const router = useRouter()
@@ -28,9 +29,13 @@ const SearchInput = () => {
           placeholder='Search by tracking number'
           onChange={handleChangeInput}
         />
-        <button type='submit' className='btn btn-sm btn-accent text-base-100'>
+        <Link
+          href={`/tracking/${trackingId}`}
+          onClick={() => resetCache(true)}
+          className='btn btn-sm btn-accent text-base-100'
+        >
           Tracking
-        </button>
+        </Link>
       </label>
     </form>
   )

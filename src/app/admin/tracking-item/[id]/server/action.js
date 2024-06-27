@@ -12,7 +12,9 @@ export const handleSubmit = async (formData) => {
   const id = formData.get('id')
   const trackingId = formData.get('trackingId')
   const file = formData.get('image')
-  const image = typeof file === 'string' ? file : await handleUpload(file)
+  const imageDefault = formData.get('defaultImage')
+
+  const image = file.size <= 0 ? imageDefault : await handleUpload(file)
 
   const rawFormData = {
     title: formData.get('title'),

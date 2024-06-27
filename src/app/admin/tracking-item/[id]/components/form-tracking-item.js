@@ -41,6 +41,7 @@ const FromTrackingItem = async ({ handleSubmit, id, trackingId }) => {
             placeholder='Status'
             className='input input-bordered w-full max-w-xs'
           />
+          <input type='text' name='defaultImage' defaultValue={image} hidden />
         </div>
         <InputFileImage defaultImage={image} />
       </div>
