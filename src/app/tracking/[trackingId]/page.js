@@ -10,14 +10,15 @@ const TrackingDetail = async ({ params }) => {
   const isExistTracking = !!data.id
 
   return (
-    <section className='h-full w-full'>
+    <section className='h-full min-w-full'>
       {isExistTracking ? (
         <>
-          <div className='w-full stats rounded-none shadow'>
+          <div className='grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 rounded-none shadow'>
             <div className='stat'>
               <div className='stat-title'>Tracking Number</div>
               <div className='stat-value text-primary'>{data.trackingNumber}</div>
             </div>
+
             <div className='stat'>
               <div className='stat-title'>Delivery Status</div>
               <div className='stat-value text-primary'>
@@ -27,16 +28,23 @@ const TrackingDetail = async ({ params }) => {
                 {data.trackingItems?.at(0)?.status || ''}
               </div>
             </div>
+
             <div className='stat'>
               <div className='stat-title'>Date Time</div>
               <div className='stat-value text-primary'>
                 {data.trackingItems.at(0)
-                  ? moment(data.trackingItems.at(0).createdAt).format('MMMM Do YYYY - HH:MM:SS')
-                  : moment(data.createdAt).format('MMMM Do YYYY - HH:MM:SS') || ''}
+                  ? moment(data.trackingItems.at(0).createdAt).format('MMMM Do YYYY')
+                  : moment(data.createdAt).format('MMMM Do YYYY') || ''}
               </div>
-              <div className='stat-desc text-secondary'>Local Time</div>
+              <div className='stat-desc text-secondary'>
+                Local Time{' '}
+                {data.trackingItems.at(0)
+                  ? moment(data.trackingItems.at(0).createdAt).format('HH:MM:SS')
+                  : moment(data.createdAt).format('HH:MM:SS') || ''}
+              </div>
             </div>
           </div>
+
           <div className='flex max-lg:flex-col gap-8'>
             <div className='flex-1 p-8'>
               <h1 className='w-full text-xl text-center font-extrabold text-gray-900'>

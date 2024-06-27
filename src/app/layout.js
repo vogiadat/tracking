@@ -51,7 +51,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <div className='app'>
             <div
-              className='hero min-h-screen'
+              className='hero min-h-screen min-w-full'
               style={{ backgroundImage: 'url("/assets/images/bg_main.jpg")' }}
             >
               <div className='hero-overlay bg-opacity-60'></div>

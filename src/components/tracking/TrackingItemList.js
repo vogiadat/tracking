@@ -14,7 +14,7 @@ const TrackingItemList = ({ createdAt, title, status, location, image }) => {
   return (
     <li>
       <dialog id='my_modal_3' className='modal'>
-        <div className='modal-box'>
+        <div className='modal-box place-content-center'>
           <form method='dialog'>
             <button className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'>✕</button>
           </form>
@@ -31,8 +31,21 @@ const TrackingItemList = ({ createdAt, title, status, location, image }) => {
       <hr />
       <div className='timeline-start text-center text-base-100'>
         <div className='bg-accent rounded-full px-2'>
-          {moment(createdAt).format('MMMM Do YYYY HH:MM:SS')}
+          <span>{moment(createdAt).format('DD/MM/YYYY')}</span>{' '}
+          <span className='max-sm:hidden'>{moment(createdAt).format('HH:MM:SS')}</span>
         </div>
+        {isExistImage && (
+          <div className='sm:hidden w-20 h-20 mx-auto my-2'>
+            <Image
+              src={image}
+              alt={title}
+              width={0}
+              height={0}
+              className={'cursor-pointer w-full h-full object-cover border'}
+              onClick={() => isExistImage && handleModal(image)}
+            />
+          </div>
+        )}
       </div>
       <div className='timeline-middle px-6'>
         <svg
@@ -56,7 +69,7 @@ const TrackingItemList = ({ createdAt, title, status, location, image }) => {
         <div className='text-zinc-500 font-semibold flex gap-8 my-1'>
           <p>{location}</p>
           {isExistImage && (
-            <div className='h-6 w-6'>
+            <div className='md:h-6 md:w-6 sm:h-10 sm:w-10 hidden'>
               <Image
                 src={image}
                 alt={title}
