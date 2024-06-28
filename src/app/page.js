@@ -1,16 +1,9 @@
 import SearchInput from '@/components/SearchInput'
 import { redirect } from 'next/navigation'
 import { resetCache } from './admin/tracking/cache/api'
+import { handleSubmit } from './server'
 
 const Page = async () => {
-  const handleSubmit = async (data) => {
-    'use server'
-
-    const trackingId = data.get('trackingId')
-    resetCache(true)
-    return redirect(`/tracking/${trackingId}`)
-  }
-
   return (
     <>
       <div className='hero-content text-center text-neutral-content'>
