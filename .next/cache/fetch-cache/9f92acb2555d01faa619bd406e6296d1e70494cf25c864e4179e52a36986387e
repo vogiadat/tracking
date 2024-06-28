@@ -1,0 +1,1 @@
+{"kind":"FETCH","data":{"headers":{},"body":"{\"id\":\"b3a687cd-9070-44dc-b206-05ee8f190649\",\"status\":\"123\",\"location\":\"123\",\"image\":null,\"trackingId\":\"027094e7-35d6-4011-8427-97e390d772e9\",\"createdAt\":\"2024-06-24T18:51:49.000Z\",\"updatedAt\":\"2024-06-24T18:51:49.000Z\"}","status":200,"url":""},"revalidate":31536000,"tags":["CACHE_KEY_TRACKING_ITEM_GET_ITEM"]}
