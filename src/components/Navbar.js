@@ -5,7 +5,6 @@ import { HomeIcon, Menu, TruckIcon } from 'lucide-react'
 import { signOut, useSession } from 'next-auth/react'
 import { useState } from 'react'
 import { resetCache } from '@/app/admin/tracking/cache/api'
-import NavbarSearch from './navbar-search'
 
 const Navbar = () => {
   const { data } = useSession()
@@ -54,7 +53,21 @@ const Navbar = () => {
       </div>
       <div className='flex-none gap-2 max-sm:w-full'>
         <div className='max-sm:min-w-full'>
-          <NavbarSearch />
+          <label className='input input-bordered input-accent flex items-center gap-2 '>
+            <input
+              type='text'
+              className='grow text-zinc-700'
+              placeholder='Search by tracking number'
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <Link
+              href={`/tracking/${search}`}
+              className='btn btn-sm btn-accent text-base-100'
+              onClick={() => resetCache(true)}
+            >
+              Tracking
+            </Link>
+          </label>
         </div>
         {user && (
           <>

@@ -1,11 +1,11 @@
 import { Sequelize } from 'sequelize'
 
 const sequelize = new Sequelize({
-  host: 'localhost',
+  host: '103.98.160.26',
   port: 3306,
-  username: 'chinapos_user_tracking',
-  password: '@(MteaaEi%d,',
-  database: 'chinapos_tracking',
+  username: 'root',
+  password: '30122002',
+  database: 'kt',
   dialect: 'mysql',
   dialectModule: require('mysql2'),
   benchmark: true,
