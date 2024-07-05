@@ -9,7 +9,10 @@ const CACHE_KEY_DETAIL_TRACKING_GET_ITEM = 'CACHE_KEY_DETAIL_TRACKING_GET_ITEM'
 
 export const getTrackings = unstable_cache(
   async () => {
-    const res = await fetch(compileURL('/api/tracking'))
+    const url = compileURL('/api/tracking')
+    console.log({ urlGetTracking: url })
+
+    const res = await fetch(url)
     return {
       isOk: res.ok,
       trackings: await res.json()
