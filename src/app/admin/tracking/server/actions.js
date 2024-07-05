@@ -22,10 +22,14 @@ export const handleSubmit = async (formData) => {
 
   const requestUrl = id ? compileURL(`/api/tracking/${id}`) : compileURL(`/api/tracking/create`)
   const method = id ? 'PATCH' : 'POST'
+
+  console.log({ requestUrl })
+
   const res = await fetch(requestUrl, {
     method,
     body: JSON.stringify(rawFormData)
   })
+
   await res.json()
 
   setFlash({ type: 'success', message: 'success' })
