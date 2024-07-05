@@ -39,9 +39,13 @@ export const handleDelete = async (formData) => {
   const requestUrl = compileURL(`/api/tracking/${id}`)
   const method = 'DELETE'
 
-  await fetch(requestUrl, {
+  console.log(requestUrl)
+
+  const res = await fetch(requestUrl, {
     method
   })
+
+  console.log({ res })
 
   setFlash({ type: 'success', message: 'success' })
   resetCache(false)

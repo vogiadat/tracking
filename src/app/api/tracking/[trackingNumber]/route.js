@@ -51,6 +51,7 @@ export const DELETE = async (req, res) => {
     await TrackingItem.destroy({ where: { trackingId: id } }).then(async () =>
       Tracking.destroy({ where: { id } })
     )
+
     return NextResponse.json(id, { status: 200 })
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 })

@@ -21,7 +21,8 @@ export const getTrackings = unstable_cache(
 
 export const getDetailTracking = unstable_cache(
   async (trackingNumber) => {
-    const res = await fetch(compileURL(`/api/tracking/${trackingNumber}`))
+    const url = compileURL(`/api/tracking/${trackingNumber}`)
+    const res = await fetch(url)
     return (await res.json()) || {}
   },
   [CACHE_KEY_DETAIL_TRACKING],
