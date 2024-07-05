@@ -1,10 +1,11 @@
 import Link from 'next/link'
 import moment from 'moment'
 import FormDeleteTracking from './form-delete-tracking'
-import { getTrackings } from './cache/api'
+import { getTrackings, resetCache } from './cache/api'
 
 const TrackingPage = async ({ searchParams }) => {
   const { isOpenFormDelete, trackingId, trackingNumber } = searchParams
+  resetCache(true)
   const { isOk, trackings } = await getTrackings()
 
   const open = isOpenFormDelete && trackingId
