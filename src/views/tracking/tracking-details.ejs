@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <%- include('../partials/head') %>
+  <body>
+    <%- include('../partials/header') %>
+
+    <main>
+      <div class="whole-wrap">
+        <div class="container box_1170">
+          <div class="section-top-border">
+            <h3 class="mb-30">Shipment Information</h3>
+            <div class="mb-30">
+              <div class="text-right">
+                <h3 class="mb-30">SHIPMENT OVERVIEW</h3>
+              </div>
+              <div class="progress-table-wrap">
+                <div class="progress-table">
+                  <div class="table-row">
+                    <div class="serial w-50"><b>FROM</b></div>
+                    <div class="country"><%= tracking.from %></div>
+                  </div>
+                  <div class="table-row">
+                    <div class="serial w-50"><b>TO</b></div>
+                    <div class="country"><%= tracking.to %></div>
+                  </div>
+                  <div class="table-row">
+                    <div class="serial w-50"><b>DATE SEND</b></div>
+                    <div class="country"><%= tracking.dateSend %></div>
+                  </div>
+                  <div class="table-row">
+                    <div class="serial w-50"><b>ESTIMATE RECEIVED DAY</b></div>
+                    <div class="country"><%= tracking.estimateReceivedDay %></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-30">
+              <div class="text-right">
+                <h3 class="mb-30">SERVICES</h3>
+              </div>
+              <div class="progress-table-wrap">
+                <div class="progress-table">
+                  <div class="table-row">
+                    <div class="serial w-50"><b>SERVICES</b></div>
+                    <div class="country"><%= tracking.services %></div>
+                  </div>
+                  <div class="table-row">
+                    <div class="serial w-50"><b>TERMS</b></div>
+                    <div class="country"><%= tracking.terms %></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-20">
+              <div class="text-right">
+                <h3 class="mb-30">PACKAGE DETAILS</h3>
+              </div>
+              <div class="progress-table-wrap">
+                <div class="progress-table">
+                  <div class="table-row">
+                    <div class="serial w-50"><b>PACKAGING</b></div>
+                    <div class="country"><%= tracking.packaging %></div>
+                  </div>
+                  <div class="table-row">
+                    <div class="serial w-50"><b>TOTAL PACKAGE</b></div>
+                    <div class="country"><%= tracking.totalPackage %></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="text-center">
+                <h3 class="mb-30">TRAVEL HISTORY</h3>
+              </div>
+              <div class="progress-table-wrap">
+                <div class="progress-table">
+                     <% trackingItems.forEach(item => { %>
+                            <div class="table-row">
+                                <div class="serial w-25">
+                                    <b>
+                                    <%= moment(item.createdAt).format('YYYY-MM-DD HH:MM') %>
+                                    </b>
+                                </div>
+
+                                <div class="country w-50">
+                                   <div>
+                                    <b> <%= item.location %></b>
+                                    <p> <%= item.title %></p>
+                                   </div>
+                                </div>
+                            </div>
+                    <% }) %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <%- include('../partials/footer') %> <%- include('../partials/scroll-up') %> <%- include('../partials/scripts') %>
+  </body>
+</html>

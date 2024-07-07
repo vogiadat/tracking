@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <%- include('./partials/head') %>
+  <body>
+    <%- include('./partials/header') %>
+
+    <main>
+      <div class="slider-area">
+        <div class="slider-active">
+          <!-- Single Slider -->
+          <div class="single-slider slider-height d-flex align-items-center">
+            <div class="container">
+              <div class="row">
+                <div class="col-xl-9 col-lg-9">
+                  <div class="hero__caption">
+                    <h1>Safe & Reliable <span>Logistic</span> Solutions!</h1>
+                  </div>
+                  <!--Hero form -->
+                  <form action="/tracking/search" class="search-box">
+                    <div class="input-form">
+                      <input type="text" name="trackingNumber" placeholder="Your Tracking ID" />
+                    </div>
+                    <div class="search-form">
+                      <button type="submit">Track & Trace</button>
+                    </div>
+                  </form>
+                  <!-- Hero Pera -->
+                  <div class="hero-pera">
+                    <p>For order status inquiry</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <%- include('./partials/footer') %> <%- include('./partials/scroll-up') %> <%- include('./partials/scripts') %>
+  </body>
+</html>
