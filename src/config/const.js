@@ -7,5 +7,5 @@ module.exports = {
   DB_NAME: process.env.DB_NAME,
   DB_HOST: process.env.DB_HOST,
   ADMIN_USERNAME: 'admin',
-  ADMIN_PASSWORD: '123456'
+  ADMIN_PASSWORD: 'qwtzchjgj123'
 }
