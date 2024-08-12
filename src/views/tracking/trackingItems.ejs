@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <%- include('../partials/head') %>
+  <body>
+    <%- include('../partials/header') %>
+
+    <div class="container-fluid py-5">
+        <h1>Tracking Items for Tracking #<%= tracking.trackingNumber %></h1>
+        <div class="row">
+            <!-- Left side: List of existing tracking items -->
+            <div class="col-md-6">
+                <h2>Existing Items</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Location</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% trackingItems.forEach(item => { %>
+                            <tr>
+                                <td><%= item.title %></td>
+                                <td><%= item.status %></td>
+                                <td><%= item.location %></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="editItem('<%= item.id %>')">Edit</button>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteItem('<%= item.id %>')">Delete</button>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Right side: Form to create new tracking item -->
+            <div class="col-md-6">
+                <h2>Add New Item</h2>
+                <form id="newItemForm">
+                    <input type="hidden" id="trackingId" value="<%= tracking.id %>">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <input type="text" class="form-control" id="status" name="status">
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Image URL</label>
+                        <input type="text" class="form-control" id="image" name="image">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Item</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %> <%- include('../partials/scroll-up') %> <%- include('../partials/scripts') %>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <%- include('../partials/head') %>
+  <body>
+    <%- include('../partials/header') %>
+
+    <main class="container py-3">
+      <div class="container mt-5">
+        <h1>Create New Tracking</h1>
+        <form action="/tracking/create" method="POST">
+          <div class="form-group">
+            <label for="trackingNumber">Tracking Number</label>
+            <input type="text" class="form-control" id="trackingNumber" name="trackingNumber" required />
+          </div>
+          <div class="form-group">
+            <label for="from">From</label>
+            <input type="text" class="form-control" id="from" name="from" required />
+          </div>
+          <div class="form-group">
+            <label for="to">To</label>
+            <input type="text" class="form-control" id="to" name="to" required />
+          </div>
+          <div class="form-group">
+            <label for="dateSend">Date Sent</label>
+            <input type="date" class="form-control" id="dateSend" name="dateSend" required />
+          </div>
+          <div class="form-group">
+            <label for="estimateReceivedDay">Estimated Received Day</label>
+            <input type="date" class="form-control" id="estimateReceivedDay" name="estimateReceivedDay" required />
+          </div>
+          <div class="form-group">
+            <label for="services">Services</label>
+            <input type="text" class="form-control" id="services" name="services" />
+          </div>
+          <div class="form-group">
+            <label for="terms">Terms</label>
+            <input type="text" class="form-control" id="terms" name="terms" />
+          </div>
+          <div class="form-group">
+            <label for="packaging">Packaging</label>
+            <input type="text" class="form-control" id="packaging" name="packaging" />
+          </div>
+          <div class="form-group">
+            <label for="totalPackage">Total Package</label>
+            <input type="number" class="form-control" id="totalPackage" name="totalPackage" required />
+          </div>
+          <div style="display: flex; justify-content: space-between">
+            <a href="/tracking" style="color: rgb(36, 36, 36); margin-right: 10px; font-weight: 600">Cancel</a>
+            <button type="submit" class="btn btn-primary">Create Tracking</button>
+          </div>
+        </form>
+      </div>
+    </main>
+    <%- include('../partials/footer') %> <%- include('../partials/scroll-up') %> <%- include('../partials/scripts') %>
+  </body>
+</html>
