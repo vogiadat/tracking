@@ -14,6 +14,7 @@ router.get('/login', (req, res) => {
 
 router.post('/login', (req, res) => {
   const { username, password } = req.body
+  console.log({username, password})
   if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
     req.session.isAuthenticated = true
     res.redirect('/admin/tracking')

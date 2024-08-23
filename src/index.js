@@ -15,7 +15,7 @@ app.use(
     secret: 'ajsldhfaklshfgjkasdbnvqedladjlaksjdklasjdkl',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
+    cookie: { secure: false }
   })
 )
 
